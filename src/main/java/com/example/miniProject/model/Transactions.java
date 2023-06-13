@@ -3,19 +3,23 @@ package com.example.miniProject.model;
 import jakarta.persistence.*;
 
 @Entity
-
 @Table(name = "Transactions")
 public class Transactions {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="Id")
     private int id;
+    @Column(name ="Order_id")
     private int order_id;
+    @Column(name = "Wallet_id")
     private int wallet_id;
+    @Column(name = "Amount")
     private float amount;
+    @Column(name = "Status")
     private boolean status;
+    @Column(name = "Exchange_id")
     private int exchange_id;
-
+    @Column(name = "Product_id")
     private int product_id;
 
     public Transactions() {
