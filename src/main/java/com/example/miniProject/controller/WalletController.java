@@ -18,16 +18,17 @@ public class WalletController {
 
     @Autowired
     WalletsService walletservice;
-
+    @CrossOrigin
     @GetMapping("/getListWallet")
     public List<Wallets> getListWallet(){ return walletservice.getAllList();}
-
+    @CrossOrigin
     @PostMapping("/createNewWallet")
     public String createNew(@RequestBody Wallets wallets) {
         walletservice.createNewWallet(wallets);
         return "success";
 
     }
+    @CrossOrigin
     @PutMapping("/updateWalletById")
     public String updateWallet(@RequestParam("id") int id,@RequestBody Wallets data) {
         System.out.print(id);
@@ -40,6 +41,7 @@ public class WalletController {
         }
         return message;
     }
+ @CrossOrigin
     @DeleteMapping("/deleteWalletById/{id}")
     public ResponseEntity<String> deleteEntity(@PathVariable("id") int id) {
         try {
@@ -50,7 +52,7 @@ public class WalletController {
 
         }
     }
-
+@CrossOrigin
     @GetMapping("/getListById/{id}")
     public Optional<Wallets> getTransactionById(@PathVariable("id") int id){
         return walletservice.getWalletById(id);

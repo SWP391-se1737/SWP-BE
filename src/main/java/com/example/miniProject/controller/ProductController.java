@@ -17,19 +17,20 @@ import java.util.Optional;
 public class ProductController {
     @Autowired
      ProductService productservice;
-
+    @CrossOrigin
     @GetMapping("/getListProduct")
     public ResponseEntity<List<Products>> getListProduct(){
         List<Products> list = productservice.getAllProduct();
         return ResponseEntity.status(200).body(list);
     }
-
+    @CrossOrigin
     @PostMapping("/createNewProduct")
     public String createNewProduct(@RequestBody Products product){
         productservice.createNewProduct(product);
         return "successfully!";
     }
 
+    @CrossOrigin
     @PutMapping("/updateProductById")
     public String updateProduct(@RequestParam("id") int id,@RequestBody Products data) {
         System.out.print(id);
@@ -42,6 +43,7 @@ public class ProductController {
         }
         return message;
     }
+    @CrossOrigin
     @DeleteMapping("/deleteProductById/{id}")
     public ResponseEntity<String> deleteProductById(@PathVariable("id") int id) {
         try {
@@ -52,8 +54,10 @@ public class ProductController {
 
         }
     }
+    @CrossOrigin
     @GetMapping("/getProductById")
     public Optional<Products> getTransactionById(@PathVariable("id") int id){
         return productservice.getProductById(id);
     }
+    ///////
 }
