@@ -1,0 +1,61 @@
+package com.example.miniProject.controller;
+
+import com.example.miniProject.model.Accounts;
+import com.example.miniProject.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/Account")
+
+public class AccountController {
+    @Autowired
+    private AccountService accountService;
+
+    @GetMapping("/listAccount")
+    public List<Accounts> accountList(){
+        return accountService.listAccount();
+    }
+
+    @PostMapping("/addAccount")
+    public String addAccount(@RequestBody Accounts acc){
+        accountService.addAccount(acc);
+        return "Account is added";
+    }
+
+    @DeleteMapping("/deleteAccount/{id}")
+    public ResponseEntity<String> deleteAccount(@PathVariable int id){
+        boolean check = false;
+        check = accountService.deleteAccount(id);
+        try {
+            if(check){
+                return ResponseEntity.ok("Delete Success Id: " + id);
+            }else{
+                return ResponseEntity.ok("ID " + id + " khong ton tai");
+            }
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
+        }
+    }
+
+
+    @PutMapping("/updateAccount/{id}")
+    public ResponseEntity<String> updateAccount(@RequestBody Accounts newAcc, @PathVariable int id){
+        boolean check = false;
+        check = accountService.updateAccount(newAcc,id);
+        try {
+            if (check){
+                return ResponseEntity.ok("Update Success ID:" + id);
+            } else {
+                return ResponseEntity.ok("ID: " + id + " khong ton tai");
+            }
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
+        }
+    }
+}
