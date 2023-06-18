@@ -1,8 +1,10 @@
 package com.example.miniProject.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.security.PrivateKey;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -21,9 +23,11 @@ public class Products {
     @Column(name = "Price")
     private float price;
     @Column(name = "CreateAt")
-    private Date create_AT;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime create_AT;
     @Column(name = "Expire")
-    private Date expire;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime expire;
     @Column(name ="Quantity")
     private int quantity;
     @Column(name = "SellerId")
@@ -40,7 +44,7 @@ public class Products {
     public Products() {
     }
 
-    public Products(int id, String name, String image, String description, float price, Date create_AT, Date expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampus_id, int category_id) {
+    public Products(int id, String name, String image, String description, float price, LocalDateTime create_AT, LocalDateTime expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampus_id, int category_id) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -96,19 +100,19 @@ public class Products {
         this.price = price;
     }
 
-    public Date getCreate_AT() {
+    public LocalDateTime getCreate_AT() {
         return create_AT;
     }
 
-    public void setCreate_AT(Date create_AT) {
+    public void setCreate_AT(LocalDateTime create_AT) {
         this.create_AT = create_AT;
     }
 
-    public Date getExpire() {
+    public LocalDateTime getExpire() {
         return expire;
     }
 
-    public void setExpire(Date expire) {
+    public void setExpire(LocalDateTime expire) {
         this.expire = expire;
     }
 

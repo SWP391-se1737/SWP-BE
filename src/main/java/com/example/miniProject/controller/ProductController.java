@@ -59,5 +59,9 @@ public class ProductController {
     public Optional<Products> getTransactionById(@PathVariable("id") int id){
         return productservice.getProductById(id);
     }
-    ///////
+    @CrossOrigin
+    @GetMapping("/searchProductByName")
+    public List<Products> searchProductByname(@RequestParam("name") String name){
+        return productservice.searchProductByname(name);
+    }
 }

@@ -19,7 +19,14 @@ public class ProductService {
     public List<Products> getAllProduct(){ return repo.findAll();}
 
     public void createNewProduct(Products product){
-         repo.save(product);
+        try {
+            repo.save(product);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+
+
     }
     public void updateProductById( int id,Products product){
         Optional<Products> exist = repo.findById(id);
@@ -49,4 +56,10 @@ public class ProductService {
          repo.deleteById(id);
     }
     public  Optional<Products> getProductById(int id){return repo.findById(id);}
+
+    public List<Products> searchProductByname(String name){
+        return repo.findByNameContainingIgnoreCase(name);
+    }
+
+
 }
