@@ -19,15 +19,10 @@ public class ProductService {
     public List<Products> getAllProduct(){ return repo.findAll();}
 
     public void createNewProduct(Products product){
-        try {
+            System.out.println(product.getCreate_AT());
             repo.save(product);
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
-
-
     }
+
     public void updateProductById( int id,Products product){
         Optional<Products> exist = repo.findById(id);
         System.out.println("Exist" +exist);
