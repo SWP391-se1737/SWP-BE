@@ -1,14 +1,10 @@
 package com.example.miniProject.controller;
 
 import com.example.miniProject.model.Products;
-
 import com.example.miniProject.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -55,7 +51,7 @@ public class ProductController {
         }
     }
     @CrossOrigin
-    @GetMapping("/getProductById")
+    @GetMapping("/getProductById/{id}")
     public Optional<Products> getTransactionById(@PathVariable("id") int id){
         return productservice.getProductById(id);
     }
@@ -64,4 +60,6 @@ public class ProductController {
     public List<Products> searchProductByname(@RequestParam("name") String name){
         return productservice.searchProductByname(name);
     }
+
+//
 }

@@ -1,6 +1,5 @@
 package com.example.miniProject.controller;
 
-import com.example.miniProject.model.Accounts;
 import com.example.miniProject.model.Campuses;
 import com.example.miniProject.service.CampusService;
 import org.springframework.beans.factory.annotation.Autowired;

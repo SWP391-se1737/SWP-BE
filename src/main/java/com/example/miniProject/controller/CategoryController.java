@@ -1,8 +1,6 @@
 package com.example.miniProject.controller;
 
-import com.example.miniProject.model.Campuses;
 import com.example.miniProject.model.Categories;
-import com.example.miniProject.service.CampusService;
 import com.example.miniProject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

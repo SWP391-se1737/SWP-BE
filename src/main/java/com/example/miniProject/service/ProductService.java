@@ -1,12 +1,15 @@
 package com.example.miniProject.service;
 
+import com.example.miniProject.model.Categories;
 import com.example.miniProject.model.Products;
+import com.example.miniProject.repository.CategoriesRepository;
 import com.example.miniProject.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     private ProductRepository repo;
+    private CategoriesRepository categoriesrepo;
 
     public List<Products> getAllProduct(){ return repo.findAll();}
 
@@ -50,11 +54,20 @@ public class ProductService {
     public void deleteProductById(int id){
          repo.deleteById(id);
     }
-    public  Optional<Products> getProductById(int id){return repo.findById(id);}
+    public  Optional<Products> getProductById(int   id){return repo.findById(id);}
 
     public List<Products> searchProductByname(String name){
         return repo.findByNameContainingIgnoreCase(name);
     }
+
+    CategoryService cato;
+
+//    public List<Products> filterProductByCategory(String categoryName){
+//        Categories nameCat = cato.searchCategoryByName(categoryName);
+//        List<Products> list = repo.findByCateGoryId(nameCat.getId());
+//
+//        return list;
+//    }
 
 
 }

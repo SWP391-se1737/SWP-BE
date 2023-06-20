@@ -1,6 +1,5 @@
 package com.example.miniProject.controller;
 
-import com.example.miniProject.model.Categories;
 import com.example.miniProject.model.Deposits;
 import com.example.miniProject.service.DepositService;
 import org.springframework.beans.factory.annotation.Autowired;

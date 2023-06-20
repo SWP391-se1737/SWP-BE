@@ -1,6 +1,5 @@
 package com.example.miniProject.controller;
 
-import com.example.miniProject.model.Categories;
 import com.example.miniProject.model.MovingItems;
 import com.example.miniProject.service.MovingItemService;
 import org.springframework.beans.factory.annotation.Autowired;
