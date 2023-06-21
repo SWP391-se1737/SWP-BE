@@ -8,10 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/Account")
+
 
 public class AccountController {
     @Autowired
@@ -56,6 +59,19 @@ public class AccountController {
             }
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
+        }
+    }
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@RequestParam String username, @RequestParam String password) {
+        // Thực hiện xác thực đăng nhập
+        // Kiểm tra thông tin tài khoản
+        if (username.equals("admin") && password.equals("password")) {
+            Map<String, String> response = Collections.singletonMap("message", "Đăng nhập thành công");
+            return ResponseEntity.ok(response);
+        } else {
+            Map<String, String> response = Collections.singletonMap("message", "Sai tên đăng nhập hoặc mật khẩu");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 }
