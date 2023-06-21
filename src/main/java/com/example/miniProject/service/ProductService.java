@@ -18,7 +18,6 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     private ProductRepository repo;
-    private CategoriesRepository categoriesrepo;
 
     public List<Products> getAllProduct(){ return repo.findAll();}
 
@@ -27,10 +26,10 @@ public class ProductService {
             repo.save(product);
     }
 
-    public void updateProductById( int id,Products product){
+    public void updateProductById(int id, Products product) {
         Optional<Products> exist = repo.findById(id);
-        System.out.println("Exist" +exist);
-        if(exist.isPresent()){
+        System.out.println("Exist" + exist);
+        if (exist.isPresent()) {
             exist.get().setName(product.getName());
             exist.get().setImage(product.getImage());
             exist.get().setDescription(product.getDescription());
@@ -44,7 +43,7 @@ public class ProductService {
             exist.get().setSellcampus_id(product.getSellcampus_id());
             exist.get().setCategory_id(product.getCategory_id());
 
-        }else{
+        } else {
 
             throw new EntityNotFoundException("Not found: " + id);
         }
@@ -60,14 +59,9 @@ public class ProductService {
         return repo.findByNameContainingIgnoreCase(name);
     }
 
-    CategoryService cato;
-
-//    public List<Products> filterProductByCategory(String categoryName){
-//        Categories nameCat = cato.searchCategoryByName(categoryName);
-//        List<Products> list = repo.findByCateGoryId(nameCat.getId());
-//
-//        return list;
-//    }
+    public List<Products> searchProductByCategoryId(int category_id){
+        return repo.findByCategory_id(category_id);
+    }
 
 
 }

@@ -5,10 +5,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Categories")
 public class Categories {
-    @jakarta.persistence.Id
-    @org.springframework.data.annotation.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "Id")
     private int Id;
     @Column(name = "Name")
@@ -17,9 +15,9 @@ public class Categories {
     private boolean Status;
 
     public Categories(int id, String name, boolean status) {
-        Id = id;
+        this.Id = id;
         this.Name = name;
-        Status = status;
+        this.Status = status;
     }
     public Categories(){}
 

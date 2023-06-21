@@ -45,5 +45,4 @@ public class CategoryService {
             return false;
         }
     }
-//    public Categories searchCategoryByName(String name ){return repo.searchByName(name);}
 }
