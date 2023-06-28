@@ -18,18 +18,15 @@ public class TransactionController {
 
     @Autowired
     TransactionsService transactionsService;
-    @CrossOrigin
     @GetMapping("/getListTransaction")
     public List<Transactions> getListTransaction() {
         return transactionsService.getAllList();
     }
-    @CrossOrigin
     @PostMapping("/createNewTransactions")
     public String createNew(@RequestBody Transactions data){
         transactionsService.createNewTransactions(data);
         return "success";
     }
-    @CrossOrigin
     @PutMapping("/updateTransactionById")
     public String updateTrans(@RequestParam("id") int id,@RequestBody Transactions data) {
         System.out.print(id);
@@ -42,7 +39,6 @@ public class TransactionController {
         }
     return message;
     }
-    @CrossOrigin
     @DeleteMapping("/deleteTransactionsById/{id}")
     public ResponseEntity<String> deleteEntity(@PathVariable("id") int id) {
         try {
@@ -53,7 +49,6 @@ public class TransactionController {
 
         }
     }
-    @CrossOrigin
     @GetMapping("/getListById/{id}")
     public Optional<Transactions> getTransactionById(@PathVariable("id") int id){
             return transactionsService.getTransactionById(id);

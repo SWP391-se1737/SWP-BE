@@ -19,21 +19,19 @@ import java.util.Map;
 public class AccountController {
     @Autowired
     private AccountService accountService;
-
-    @CrossOrigin
     @GetMapping("/listAccount")
     public List<Accounts> accountList(){
         return accountService.listAccount();
     }
 
-    @CrossOrigin
+
     @PostMapping("/addAccount")
     public String addAccount(@RequestBody Accounts acc){
         accountService.addAccount(acc);
         return "Account is added";
     }
 
-    @CrossOrigin
+
     @DeleteMapping("/deleteAccount/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable int id){
         boolean check = false;
@@ -48,8 +46,6 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
         }
     }
-
-    @CrossOrigin
     @PutMapping("/updateAccount/{id}")
     public ResponseEntity<String> updateAccount(@RequestBody Accounts newAcc, @PathVariable int id){
         boolean check = false;
