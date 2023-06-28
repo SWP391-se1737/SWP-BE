@@ -21,22 +21,23 @@ public class ProductController {
     }
 
     @PostMapping("/createNewProduct")
-    public String createNewProduct(@RequestBody Products product) {
+    public ResponseEntity<String> createNewProduct(@RequestBody Products product) {
+        try {
         productservice.createNewProduct(product);
-        return "successfully!";
+        return ResponseEntity.status(200).body("Successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error creating product" + e.getMessage());
+        }
     }
 
     @PutMapping("/updateProductById")
-    public String updateProduct(@RequestParam("id") int id, @RequestBody Products data) {
-        System.out.print(id);
-        String message = "failded";
+    public ResponseEntity<String> updateProduct(@RequestParam("id") int id, @RequestBody Products data) {
         try {
             productservice.updateProductById(id, data);
-            message = "succes";
+            return ResponseEntity.status(200).body("Successfully!");
         } catch (Exception err) {
-            message = "failed" + err;
+            return ResponseEntity.status(500).body("Error updating product" + err.getMessage());
         }
-        return message;
     }
 
     @CrossOrigin
@@ -44,7 +45,7 @@ public class ProductController {
     public ResponseEntity<String> deleteProductById(@PathVariable("id") int id) {
         try {
             productservice.deleteProductById(id);
-            return ResponseEntity.ok("Delete successfully");
+            return ResponseEntity.status(200).body("Delete successfully");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error deleting product" + e.getMessage());
 
@@ -53,16 +54,17 @@ public class ProductController {
 
     @GetMapping("/getProductById/{id}")
     public Optional<Products> getTransactionById(@PathVariable("id") int id) {
-        return productservice.getProductById(id);
+        return  productservice.getProductById(id);
     }
 
     @GetMapping("/searchProductByName")
-    public List<Products> searchProductByname(@RequestParam("name") String name) {
-        return productservice.searchProductByname(name);
+    public ResponseEntity<List<Products>> searchProductByName(@RequestParam("name") String name) {
+        List<Products> list = productservice.searchProductByName(name);
+        return ResponseEntity.status(200).body(list);
     }
 
     @GetMapping("/filterProductByCategory")
-    public List<Products> filterProductByCategory(@RequestParam("category_id") int category_id) {
-        return productservice.searchProductByCategoryId(category_id);
+    public ResponseEntity<List<Products>> filterProductByCategory(@RequestParam("category_id") int category_id) {
+        return ResponseEntity.status(200).body(productservice.filterProductByCategory(category_id));
     }
 }

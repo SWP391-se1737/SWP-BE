@@ -55,11 +55,11 @@ public class ProductService {
     }
     public  Optional<Products> getProductById(int   id){return repo.findById(id);}
 
-    public List<Products> searchProductByname(String name){
+    public List<Products> searchProductByName(String name){
         return repo.findByNameContainingIgnoreCase(name);
     }
 
-    public List<Products> searchProductByCategoryId(int category_id){
+    public List<Products> filterProductByCategory(int category_id){
         return repo.findByCategory_id(category_id);
     }
 

@@ -28,7 +28,7 @@ public class TransactionController {
         return "success";
     }
     @PutMapping("/updateTransactionById")
-    public String updateTrans(@RequestParam("id") int id,@RequestBody Transactions data) {
+    public ResponseEntity<String> updateTrans(@RequestParam("id") int id,@RequestBody Transactions data) {
         System.out.print(id);
         String message = "failded";
         try {
@@ -37,7 +37,7 @@ public class TransactionController {
         } catch (Exception err) {
             message = "failed" + err ;
         }
-    return message;
+    return ResponseEntity.status(200).body(message);
     }
     @DeleteMapping("/deleteTransactionsById/{id}")
     public ResponseEntity<String> deleteEntity(@PathVariable("id") int id) {
@@ -45,7 +45,7 @@ public class TransactionController {
             transactionsService.deleteTransactionsById(id);
             return ResponseEntity.ok("Delete successfully");
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting entity" + e.getMessage());
+            return ResponseEntity.status(500).body("Error deleting entity" + e.getMessage());
 
         }
     }

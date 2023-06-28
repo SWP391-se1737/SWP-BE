@@ -17,11 +17,11 @@ public class Accounts {
     @Column(name = "Phone")
     private String Phone;
     @Column(name = "Role")
-    private int Role;
+    private String Role;
     @Column(name = "Status")
     private boolean Status;
 
-    public Accounts(int id, String email, String phone, int role, boolean status) {
+    public Accounts(int id, String email, String phone, String role, boolean status) {
         Id = id;
         Email = email;
         Phone = phone;
@@ -54,11 +54,11 @@ public class Accounts {
         Phone = phone;
     }
 
-    public int getRole() {
+    public String getRole() {
         return Role;
     }
 
-    public void setRole(int role) {
+    public void setRole(String role) {
         Role = role;
     }
 
