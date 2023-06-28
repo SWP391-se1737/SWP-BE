@@ -14,21 +14,18 @@ public class ProductController {
     @Autowired
     ProductService productservice;
 
-    @CrossOrigin
     @GetMapping("/getListProduct")
     public ResponseEntity<List<Products>> getListProduct() {
         List<Products> list = productservice.getAllProduct();
         return ResponseEntity.status(200).body(list);
     }
 
-    @CrossOrigin
     @PostMapping("/createNewProduct")
     public String createNewProduct(@RequestBody Products product) {
         productservice.createNewProduct(product);
         return "successfully!";
     }
 
-    @CrossOrigin
     @PutMapping("/updateProductById")
     public String updateProduct(@RequestParam("id") int id, @RequestBody Products data) {
         System.out.print(id);
@@ -54,19 +51,16 @@ public class ProductController {
         }
     }
 
-    @CrossOrigin
     @GetMapping("/getProductById/{id}")
     public Optional<Products> getTransactionById(@PathVariable("id") int id) {
         return productservice.getProductById(id);
     }
 
-    @CrossOrigin
     @GetMapping("/searchProductByName")
     public List<Products> searchProductByname(@RequestParam("name") String name) {
         return productservice.searchProductByname(name);
     }
 
-    @CrossOrigin
     @GetMapping("/filterProductByCategory")
     public List<Products> filterProductByCategory(@RequestParam("category_id") int category_id) {
         return productservice.searchProductByCategoryId(category_id);
