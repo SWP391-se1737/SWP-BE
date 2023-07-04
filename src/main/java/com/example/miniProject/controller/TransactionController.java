@@ -19,33 +19,35 @@ public class TransactionController {
     @Autowired
     TransactionsService transactionsService;
     @GetMapping("/getListTransaction")
-    public List<Transactions> getListTransaction() {
-        return transactionsService.getAllList();
+    public ResponseEntity<List<Transactions>> getListTransaction() {
+        List<Transactions> list = transactionsService.getAllList();
+        return ResponseEntity.status(200).body(list);
     }
     @PostMapping("/createNewTransactions")
-    public String createNew(@RequestBody Transactions data){
-        transactionsService.createNewTransactions(data);
-        return "success";
+    public ResponseEntity<String> createNew(@RequestBody Transactions data){
+        try {
+            transactionsService.createNewTransactions(data);
+            return ResponseEntity.status(200).body("Successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error creating Transaction" + e.getMessage());
+        }
     }
     @PutMapping("/updateTransactionById")
     public ResponseEntity<String> updateTrans(@RequestParam("id") int id,@RequestBody Transactions data) {
-        System.out.print(id);
-        String message = "failded";
         try {
             transactionsService.updateTransactionsById(id, data);
-            message = "succes";
+            return ResponseEntity.status(200).body("Successfully!");
         } catch (Exception err) {
-            message = "failed" + err ;
+            return ResponseEntity.status(500).body("Error updating Transaction" + err.getMessage());
         }
-    return ResponseEntity.status(200).body(message);
     }
     @DeleteMapping("/deleteTransactionsById/{id}")
     public ResponseEntity<String> deleteEntity(@PathVariable("id") int id) {
         try {
             transactionsService.deleteTransactionsById(id);
-            return ResponseEntity.ok("Delete successfully");
+            return ResponseEntity.status(200).body("Delete successfully");
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error deleting entity" + e.getMessage());
+            return ResponseEntity.status(500).body("Error deleting Transaction" + e.getMessage());
 
         }
     }

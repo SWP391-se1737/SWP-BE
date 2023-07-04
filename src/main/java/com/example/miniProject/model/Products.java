@@ -23,8 +23,9 @@ public class Products {
     @Column(name = "Price")
     private float price;
     @Column(name = "CreateAt")
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date create_AT;
+    private Date createAT;
     @Column(name = "Expire")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expire;
@@ -44,13 +45,13 @@ public class Products {
     public Products() {
     }
 
-    public Products(int id, String name, String image, String description, float price, Date create_AT, Date expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampus_id, int category_id) {
+    public Products(int id, String name, String image, String description, float price, Date createAT, Date expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampus_id, int category_id) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.description = description;
         this.price = price;
-        this.create_AT = new Date();
+        this.createAT = new Date();
         this.expire = expire;
         this.status = status;
         this.quantity = quantity;
@@ -100,12 +101,12 @@ public class Products {
         this.price = price;
     }
 
-    public Date getCreate_AT() {
-        return create_AT;
+    public Date getCreateAT() {
+        return createAT;
     }
 
-    public void setCreate_AT(Date create_AT) {
-        this.create_AT = new Date();
+    public void setCreateAT(Date create_AT) {
+        this.createAT = new Date();
     }
 
     public Date getExpire() {

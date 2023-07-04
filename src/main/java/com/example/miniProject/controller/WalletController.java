@@ -20,37 +20,40 @@ public class WalletController {
     WalletsService walletservice;
     @CrossOrigin
     @GetMapping("/getListWallet")
-    public List<Wallets> getListWallet(){ return walletservice.getAllList();}
+    public ResponseEntity<List<Wallets>>getListWallet(){
+        List<Wallets> list = walletservice.getAllList();
+        return ResponseEntity.status(200).body(list);
+    }
     @CrossOrigin
     @PostMapping("/createNewWallet")
-    public String createNew(@RequestBody Wallets wallets) {
-        walletservice.createNewWallet(wallets);
-        return "success";
-
+    public ResponseEntity<String> createNew(@RequestBody Wallets wallets) {
+        try {
+            walletservice.createNewWallet(wallets);
+            return ResponseEntity.status(200).body("Successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error creating Wallet" + e.getMessage());
+        }
     }
     @CrossOrigin
     @PutMapping("/updateWalletById")
     public String updateWallet(@RequestParam("id") int id,@RequestBody Wallets data) {
-        System.out.print(id);
-        String message = "failded";
-        try {
-            walletservice.updateWalletById(id, data);
-            message = "succes";
-        } catch (Exception err) {
-            message = "failed" + err ;
-        }
-        return message;
+       try {
+           walletservice.updateWalletById(id, data);
+           return "Successfully!";
+       } catch (EntityNotFoundException e) {
+           return "Error updating Wallet" + e.getMessage();
+       }
     }
  @CrossOrigin
     @DeleteMapping("/deleteWalletById/{id}")
     public ResponseEntity<String> deleteEntity(@PathVariable("id") int id) {
-        try {
-            walletservice.deleteWalletById(id);
-            return ResponseEntity.ok("Delete successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting entity" + e.getMessage());
+       try {
+           walletservice.deleteWalletById(id);
+           return ResponseEntity.status(200).body("Delete successfully");
+       } catch (Exception e) {
+           return ResponseEntity.status(500).body("Error deleting Wallet" + e.getMessage());
 
-        }
+       }
     }
 @CrossOrigin
     @GetMapping("/getListById/{id}")

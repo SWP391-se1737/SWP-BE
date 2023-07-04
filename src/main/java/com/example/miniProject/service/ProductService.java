@@ -22,7 +22,7 @@ public class ProductService {
     public List<Products> getAllProduct(){ return repo.findAll();}
 
     public void createNewProduct(Products product){
-            System.out.println(product.getCreate_AT());
+            System.out.println(product.getCreateAT());
             repo.save(product);
     }
 
@@ -34,7 +34,7 @@ public class ProductService {
             exist.get().setImage(product.getImage());
             exist.get().setDescription(product.getDescription());
             exist.get().setPrice(product.getPrice());
-            exist.get().setCreate_AT(product.getCreate_AT());
+            exist.get().setCreateAT(product.getCreateAT());
             exist.get().setExpire(product.getExpire());
             exist.get().setStatus(product.getStatus());
             exist.get().setQuantity(product.getQuantity());
@@ -63,5 +63,18 @@ public class ProductService {
         return repo.findByCategory_id(category_id);
     }
 
+    public List<Products> filterProductByCampus(int sellcampus_id){
+        List<Products> products = repo.findAll();
+        List<Products> result = new ArrayList<>();
+        for (Products product : products) {
+            if (product.getSellcampus_id() == sellcampus_id) {
+                result.add(product);
+            }
+        }
+        return result;
+    }
 
+    public List<Products> getAllProductOrderByCreate_ATDesc(){
+        return repo.findAllByOrderByCreateATDesc();
+    }
 }
