@@ -19,7 +19,10 @@ public class ProductService {
     @Autowired
     private ProductRepository repo;
 
-    public List<Products> getAllProduct(){ return repo.findAll();}
+    public List<Products> getAllProduct(){
+
+        return repo.findAll();
+    }
 
     public void createNewProduct(Products product){
             System.out.println(product.getCreateAT());
