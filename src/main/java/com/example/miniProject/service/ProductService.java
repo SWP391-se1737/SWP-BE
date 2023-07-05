@@ -50,8 +50,13 @@ public class ProductService {
 
     }
 
-    public void deleteProductById(int id){
-         repo.deleteById(id);
+    public void deleteProductById(int id, Products product){
+         Optional<Products> exist = repo.findById(id);
+        if(exist.isPresent()) {
+            exist.get().setStatus(product.getStatus());
+        }else{
+            throw new EntityNotFoundException("Not found: " + id);
+        }
     }
     public  Optional<Products> getProductById(int   id){return repo.findById(id);}
 
