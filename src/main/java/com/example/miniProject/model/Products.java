@@ -36,16 +36,16 @@ public class Products {
     @Column(name = "BuyCampusId")
     private int buycampus_id;
     @Column(name = "SellCampusId")
-    private int sellcampus_id;
+    private int sellcampusid;
     @Column(name = "CategoryID")
-    private int category_id;
+    private int categoryid;
     @Column(name = "Status")
     private String status;
 
     public Products() {
     }
 
-    public Products(int id, String name, String image, String description, float price, Date createAT, Date expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampus_id, int category_id) {
+    public Products(int id, String name, String image, String description, float price, Date createAT, Date expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampusid, int categoryid) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -57,8 +57,8 @@ public class Products {
         this.quantity = quantity;
         this.seller_id = seller_id;
         this.buycampus_id = buycampus_id;
-        this.sellcampus_id = sellcampus_id;
-        this.category_id = category_id;
+        this.sellcampusid = sellcampusid;
+        this.categoryid = categoryid;
     }
 
     public int getId() {
@@ -141,20 +141,20 @@ public class Products {
         this.buycampus_id = buycampus_id;
     }
 
-    public int getSellcampus_id() {
-        return sellcampus_id;
+    public int getSellcampusid() {
+        return sellcampusid;
     }
 
-    public void setSellcampus_id(int sellcampus_id) {
-        this.sellcampus_id = sellcampus_id;
+    public void setSellcampusid(int sellcampusid) {
+        this.sellcampusid = sellcampusid;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategoryid() {
+        return categoryid;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategoryid(int categoryid) {
+        this.categoryid = categoryid;
     }
 
     public String getStatus() {

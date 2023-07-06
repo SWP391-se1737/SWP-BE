@@ -64,13 +64,13 @@ public class ProductController {
     }
 
     @GetMapping("/filterProductByCategory")
-    public ResponseEntity<List<Products>> filterProductByCategory(@RequestParam("category_id") int category_id) {
-        return ResponseEntity.status(200).body(productservice.filterProductByCategory(category_id));
+    public ResponseEntity<List<Products>> filterProductByCategory(@RequestParam("categoryid") int categoryid) {
+        return ResponseEntity.status(200).body(productservice.filterProductByCategory(categoryid));
     }
 
     @GetMapping("/filterProductByCampus")
-    public ResponseEntity<List<Products>> filterProductByCampus(@RequestParam("sellcampus_id") int sellcampus_id) {
-        return ResponseEntity.status(200).body(productservice.filterProductByCampus(sellcampus_id));
+    public ResponseEntity<List<Products>> filterProductByCampus(@RequestParam("sellcampusid") int sellcampusid) {
+        return ResponseEntity.status(200).body(productservice.filterProductByCampus(sellcampusid));
     }
 
     @GetMapping("/getProductByCreateAtDesc")
@@ -78,6 +78,9 @@ public class ProductController {
         return ResponseEntity.status(200).body(productservice.getAllProductOrderByCreate_ATDesc());
     }
 
-
+    @GetMapping("/search")
+    public ResponseEntity<List<Products>> getProductsByCategory_idAndSellCampus( @RequestParam("category_id") int  category_id, @RequestParam("sellcampus_id") int sellcampus_id) {
+        return ResponseEntity.status(200).body(productservice.getProductsByCategory_idAndSellCampus_id(category_id, sellcampus_id));
+    }
 
 }

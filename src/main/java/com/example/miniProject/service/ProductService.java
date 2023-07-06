@@ -43,8 +43,8 @@ public class ProductService {
             exist.get().setQuantity(product.getQuantity());
             exist.get().setBuycampus_id(product.getBuycampus_id());
             exist.get().setSeller_id(product.getSeller_id());
-            exist.get().setSellcampus_id(product.getSellcampus_id());
-            exist.get().setCategory_id(product.getCategory_id());
+            exist.get().setSellcampusid(product.getSellcampusid());
+            exist.get().setCategoryid(product.getCategoryid());
 
         } else {
 
@@ -67,15 +67,15 @@ public class ProductService {
         return repo.findByNameContainingIgnoreCase(name);
     }
 
-    public List<Products> filterProductByCategory(int category_id){
-        return repo.findByCategory_id(category_id);
+    public List<Products> filterProductByCategory(int categoryid){
+        return repo.findByCategory_id(categoryid);
     }
 
-    public List<Products> filterProductByCampus(int sellcampus_id){
+    public List<Products> filterProductByCampus(int sellcampusid){
         List<Products> products = repo.findAll();
         List<Products> result = new ArrayList<>();
         for (Products product : products) {
-            if (product.getSellcampus_id() == sellcampus_id) {
+            if (product.getSellcampusid() == sellcampusid) {
                 result.add(product);
             }
         }
@@ -84,5 +84,9 @@ public class ProductService {
 
     public List<Products> getAllProductOrderByCreate_ATDesc(){
         return repo.findAllByOrderByCreateATDesc();
+    }
+
+    public List<Products> getProductsByCategory_idAndSellCampus_id(int category_id,int sellcampus_id){
+        return repo.findByCategory_idAndSellCampus_id(category_id,sellcampus_id);
     }
 }

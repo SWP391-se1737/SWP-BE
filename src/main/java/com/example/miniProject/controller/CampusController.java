@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Campus")
-//hadsahdjkqwhejkwhdjksabncjdkbkudsbvhjfvb fg jdsjh
+
 public class CampusController {
     @Autowired
     private CampusService campusService;
