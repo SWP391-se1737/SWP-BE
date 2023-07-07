@@ -1,6 +1,7 @@
 package com.example.miniProject.controller;
 
 import com.example.miniProject.model.Accounts;
+import com.example.miniProject.model.Products;
 import com.example.miniProject.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -72,5 +74,23 @@ public class AccountController {
             Map<String, String> response = Collections.singletonMap("message", "Sai tên đăng nhập hoặc mật khẩu");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
+    }
+
+    @GetMapping("/searchAccountByName")
+    public ResponseEntity<Map<String, Object>> searchAccountByEmail(@RequestParam("email") String email) {
+        List<Accounts> list = accountService.searchAccountByEmail(email);
+        Map<String, Object> response = new HashMap<>();
+
+        if (list != null && !list.isEmpty()) {
+            // Tài khoản đã tồn tại
+            response.put("exists", true);
+            response.put("account", list.get(0)); // Lấy tài khoản đầu tiên trong danh sách
+        } else {
+            // Tài khoản không tồn tại
+            response.put("exists", false);
+            response.put("account", null);
+        }
+
+        return ResponseEntity.status(200).body(response);
     }
 }
