@@ -73,13 +73,17 @@ public class ProductService {
 
     public List<Products> filterProductByCampus(int sellcampusid){
         List<Products> products = repo.findAll();
-        List<Products> result = new ArrayList<>();
-        for (Products product : products) {
-            if (product.getSellcampusid() == sellcampusid) {
-                result.add(product);
+        if (sellcampusid == 0) {
+            return products;
+        } else {
+            List<Products> result = new ArrayList<>();
+            for (Products product : products) {
+                if (product.getSellcampusid() == sellcampusid) {
+                    result.add(product);
+                }
             }
+            return result;
         }
-        return result;
     }
 
     public List<Products> getAllProductOrderByCreate_ATDesc(){
@@ -87,6 +91,10 @@ public class ProductService {
     }
 
     public List<Products> getProductsByCategory_idAndSellCampus_id(int category_id,int sellcampus_id){
-        return repo.findByCategory_idAndSellCampus_id(category_id,sellcampus_id);
+        if (sellcampus_id == 0) {
+            return repo.findAll();
+        } else {
+            return repo.findByCategory_idAndSellCampus_id(category_id, sellcampus_id);
+        }
     }
 }
