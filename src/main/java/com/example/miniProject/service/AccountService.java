@@ -2,6 +2,7 @@ package com.example.miniProject.service;
 
 
 import com.example.miniProject.model.Accounts;
+import com.example.miniProject.model.Products;
 import com.example.miniProject.repository.AccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,13 @@ public class AccountService {
             account.setEmail(newAccount.getEmail());
             account.setPhone(newAccount.getPhone());
             account.setRole(newAccount.getRole());
-            account.setStatus(newAccount.getStatus());
+            account.setStatus(newAccount.isStatus());
             return true;
         } else {
             return false;
         }
     }
-
+    public List<Accounts> searchAccountByEmail(String email){
+        return repo.findByEmailContainingIgnoreCase(email);
+    }
 }

@@ -6,67 +6,66 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Accounts")
 public class Accounts {
-    @jakarta.persistence.Id
-    @org.springframework.data.annotation.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+    @Column(name = "email")
+    private String email;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "role")
+    private String role;
+    @Column(name = "status")
+    private boolean status;
 
-    @Column(name = "Id")
-    private int Id;
-    @Column(name = "Email")
-    private String Email;
-    @Column(name = "Phone")
-    private String Phone;
-    @Column(name = "Role")
-    private String Role;
-    @Column(name = "Status")
-    private boolean Status;
-
-    public Accounts(int id, String email, String phone, String role, boolean status) {
-        Id = id;
-        Email = email;
-        Phone = phone;
-        Role = role;
-        Status = status;
-    }
     public Accounts(){}
 
+    public Accounts(int id, String email, String phone, String role, boolean status) {
+        this.id = id;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.status = status;
+    }
+
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getRole() {
-        return Role;
+        return role;
     }
 
     public void setRole(String role) {
-        Role = role;
+        this.role = role;
     }
 
-    public boolean getStatus() {
-        return Status;
+    public boolean isStatus() {
+        return status;
     }
 
     public void setStatus(boolean status) {
-        Status = status;
+        this.status = status;
     }
 }
