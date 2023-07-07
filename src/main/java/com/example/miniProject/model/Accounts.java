@@ -8,15 +8,15 @@ import jakarta.persistence.*;
 public class Accounts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "Id")
     private int id;
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
-    @Column(name = "phone")
+    @Column(name = "Phone")
     private String phone;
-    @Column(name = "role")
+    @Column(name = "Role")
     private String role;
-    @Column(name = "status")
+    @Column(name = "Status")
     private boolean status;
 
     public Accounts(){}
