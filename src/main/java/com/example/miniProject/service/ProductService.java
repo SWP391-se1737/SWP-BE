@@ -91,7 +91,7 @@ public class ProductService {
     }
 
     public List<Products> getProductsByCategory_idAndSellCampus_id(int category_id,int sellcampus_id){
-        if (sellcampus_id == 0) {
+        if (sellcampus_id == 0 && category_id == 0) {
             return repo.findAll();
         } else {
             return repo.findByCategory_idAndSellCampus_id(category_id, sellcampus_id);
