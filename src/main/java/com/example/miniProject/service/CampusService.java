@@ -3,6 +3,7 @@ package com.example.miniProject.service;
 
 
 import com.example.miniProject.model.Campuses;
+import com.example.miniProject.model.Products;
 import com.example.miniProject.repository.CampusesRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,6 @@ public class CampusService {
             return false;
         }
     }
+
+    public  Optional<Campuses> getCampusById(int id){return repo.findById(id);}
 }

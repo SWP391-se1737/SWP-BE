@@ -19,15 +19,20 @@ public class Campuses {
     private String Longitude;
     @Column(name = "Latitude")
     private String Latitude;
+    @Column(name = "status")
+    private boolean status;
 
-    public Campuses(int id, String name, String address, String longitude, String latitude) {
+    public Campuses(int id, String name, String address, String longitude, String latitude, boolean status) {
         Id = id;
         Name = name;
         Address = address;
         Longitude = longitude;
         Latitude = latitude;
+        this.status = status;
     }
-    public Campuses(){}
+    public Campuses(){
+
+    }
 
     public int getId() {
         return Id;
@@ -67,5 +72,12 @@ public class Campuses {
 
     public void setLatitude(String latitude) {
         Latitude = latitude;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

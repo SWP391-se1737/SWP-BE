@@ -40,8 +40,8 @@ public class CategoryController {
         }
     }
 
-    @PutMapping("/updateCategoryStatus/{id}")
-    public ResponseEntity<String> updateCategoryStatus(@PathVariable("id") int id) {
+    @PutMapping("/updateCategoryStatus")
+    public ResponseEntity<String> updateCategoryStatus(@RequestParam("id") int id) {
         try {
             boolean check = categoryService.updateCategoryStatus(id);
             if (check) {

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/Campus")
@@ -55,5 +56,10 @@ public class CampusController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
         }
+    }
+
+    @GetMapping("/getCampusById")
+    public Optional<Campuses> getTransactionById(@RequestParam("id") int id) {
+        return  campusService.getCampusById(id);
     }
 }
