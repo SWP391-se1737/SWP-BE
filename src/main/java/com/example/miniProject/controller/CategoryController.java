@@ -25,7 +25,7 @@ public class CategoryController {
         return "Campus is added";
     }
 
-    @PutMapping("/updateAccount/{id}")
+    @PutMapping("/updateCategory/{id}")
     public ResponseEntity<String> updateCategory(@RequestBody Categories newCategory, @PathVariable int id){
         boolean check = false;
         check = categoryService.updateCategory(newCategory,id);
@@ -40,18 +40,17 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/deleteAccount/{id}")
-    public ResponseEntity<String> deleteAccount(@PathVariable int id){
-        boolean check = false;
-        check = categoryService.deleteCategory(id);
+    @PutMapping("/updateCategoryStatus/{id}")
+    public ResponseEntity<String> updateCategoryStatus(@PathVariable("id") int id) {
         try {
-            if(check){
-                return ResponseEntity.ok("Delete Success Id: " + id);
-            }else{
-                return ResponseEntity.ok("ID " + id + " khong ton tai");
+            boolean check = categoryService.updateCategoryStatus(id);
+            if (check) {
+                return ResponseEntity.ok("Thay đổi trạng thái thành công cho ID: " + id);
+            } else {
+                return ResponseEntity.ok("ID " + id + " không tồn tại");
             }
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi trong AccountController: " + e.getMessage());
         }
     }
 }

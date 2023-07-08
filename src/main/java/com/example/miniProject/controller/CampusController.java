@@ -27,8 +27,8 @@ public class CampusController {
         return "Campus is added";
     }
 
-    @PutMapping("/updateAccount/{id}")
-    public ResponseEntity<String> updateAccount(@RequestBody Campuses newCampus, @PathVariable int id){
+    @PutMapping("/updateCampus/{id}")
+    public ResponseEntity<String> updateCampus (@RequestBody Campuses newCampus, @PathVariable int id){
         boolean check = false;
         check = campusService.updateCampus(newCampus,id);
         try {
@@ -42,8 +42,8 @@ public class CampusController {
         }
     }
 
-    @DeleteMapping("/deleteAccount/{id}")
-    public ResponseEntity<String> deleteAccount(@PathVariable int id){
+    @DeleteMapping("/deleteCampus/{id}")
+    public ResponseEntity<String> deleteCampus(@PathVariable int id){
         boolean check = false;
         check = campusService.deleteCampus(id);
         try {

@@ -20,13 +20,13 @@ public class MovingItemController {
         return movingItemService.listItem();
     }
     @PostMapping("/addItems")
-    public String addCategory(@RequestBody MovingItems movingItems){
+    public String addItem(@RequestBody MovingItems movingItems){
         movingItemService.addItem(movingItems);
         return "Items is added";
     }
 
     @PutMapping("/updateItems/{id}")
-    public ResponseEntity<String> updateCategory(@RequestBody MovingItems newItem, @PathVariable int id){
+    public ResponseEntity<String> updateItem(@RequestBody MovingItems newItem, @PathVariable int id){
         boolean check = false;
         check = movingItemService.updateItem(newItem,id);
         try {
@@ -41,7 +41,7 @@ public class MovingItemController {
     }
 
     @DeleteMapping("/deleteItems/{id}")
-    public ResponseEntity<String> deleteAccount(@PathVariable int id){
+    public ResponseEntity<String> deleteItem(@PathVariable int id){
         boolean check = false;
         check = movingItemService.deleteItem(id);
         try {

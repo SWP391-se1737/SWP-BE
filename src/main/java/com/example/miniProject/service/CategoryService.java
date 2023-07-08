@@ -45,4 +45,18 @@ public class CategoryService {
             return false;
         }
     }
+
+
+    public boolean updateCategoryStatus(int id) {
+        Optional<Categories> optionalCategory = repo.findById(id);
+        if (optionalCategory.isPresent()) {
+            Categories category = optionalCategory.get();
+            boolean currentStatus = category.isStatus();
+            category.setStatus(!currentStatus); // Đảo ngược trạng thái
+            repo.save(category);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
