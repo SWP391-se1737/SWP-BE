@@ -44,5 +44,9 @@ public class TransactionsService {
    }
    public  Optional<Transactions> getTransactionById(int id){ return repo.findById(id);}
 
+    public List<Transactions> getTransactionByWalletId(int wallet_id){
+        return repo.findByWallet_id(wallet_id);
+    }
+
 }
 

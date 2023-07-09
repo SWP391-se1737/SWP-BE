@@ -55,5 +55,11 @@ public class TransactionController {
     public Optional<Transactions> getTransactionById(@PathVariable("id") int id){
             return transactionsService.getTransactionById(id);
         }
+
+    @GetMapping("/getListByWalletId/{wallet_id}")
+     public ResponseEntity<List<Transactions>> getListByWalletId(@PathVariable("wallet_id") int wallet_id){
+        List<Transactions> list = transactionsService.getTransactionByWalletId(wallet_id);
+        return ResponseEntity.status(200).body(list);
+    }
 }
 

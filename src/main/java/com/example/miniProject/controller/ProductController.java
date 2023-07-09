@@ -83,4 +83,9 @@ public class ProductController {
         return ResponseEntity.status(200).body(productservice.getProductsByCategory_idAndSellCampus_id(category_id, sellcampus_id));
     }
 
+    @GetMapping("/getProductBySellerId")
+    public ResponseEntity<List<Products>> getProductBySellerId(@RequestParam("seller_id") int seller_id) {
+        return ResponseEntity.status(200).body(productservice.getProductBySellerId(seller_id));
+    }
+
 }
