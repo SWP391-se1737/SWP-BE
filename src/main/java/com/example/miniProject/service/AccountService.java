@@ -52,4 +52,6 @@ public class AccountService {
     public List<Accounts> searchAccountByEmail(String email){
         return repo.findByEmailContainingIgnoreCase(email);
     }
+
+    public  Optional<Accounts> getAccountById(int id){return repo.findById(id);}
 }

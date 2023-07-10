@@ -9,10 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/Account")
@@ -92,5 +89,10 @@ public class AccountController {
         }
 
         return ResponseEntity.status(200).body(response);
+    }
+
+    @GetMapping("/getAccountById")
+    public Optional<Accounts> getTransactionById(@RequestParam("id") int id) {
+        return accountService.getAccountById(id);
     }
 }
