@@ -51,4 +51,8 @@ public class OrderService {
     public Optional<Orders> getOrderById(int id){
         return repo.findById(id);
     }
+
+    public List<Orders> getOrderByBuyerId(int buyerid){
+        return repo.findByBuyerid(buyerid);
+    }
 }
