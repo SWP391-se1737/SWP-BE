@@ -4,6 +4,7 @@ import com.example.miniProject.model.Orders;
 import com.example.miniProject.model.Products;
 import com.example.miniProject.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,26 +33,18 @@ public class OrderController {
         }
     }
 
-    @PutMapping("/updateOrderById")
-    public ResponseEntity<String> updateOrderById(int id, Orders order) {
+    // /updateOrderById/{id}?status=xxx
+    @PutMapping("/updateOrderStatusById/{id}")
+    public ResponseEntity<String> updateOrderById(@PathVariable("id") int id,@RequestParam String status) {
         try {
-            orderservice.updateOrderById(id, order);
+            orderservice.updateOrderById(id, status);
             return ResponseEntity.status(200).body("Successfully!");
         } catch (Exception err) {
             return ResponseEntity.status(500).body("Error updating order" + err.getMessage());
         }
     }
 
-    @DeleteMapping("/deleteOrderById/{id}")
-    public ResponseEntity<String> deleteOrderById(@PathVariable("id") int id, @RequestBody Orders order) {
-        try {
-            orderservice.deleteOrderById(id,order);
-            return ResponseEntity.status(200).body("Delete successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error deleting order" + e.getMessage());
 
-        }
-    }
 
     @GetMapping("/getOrderById/{id}")
     public Optional<Orders> getOrderById(@PathVariable("id") int id) {

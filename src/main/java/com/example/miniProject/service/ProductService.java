@@ -27,6 +27,7 @@ public class ProductService {
     public void createNewProduct(Products product){
             System.out.println(product.getCreateAT());
             repo.save(product);
+
     }
 
     public void updateProductById(int id, Products product) {
@@ -53,13 +54,16 @@ public class ProductService {
 
     }
 
-    public void deleteProductById(int id, Products product){
+    public void deleteProductById(int id){
          Optional<Products> exist = repo.findById(id);
         if(exist.isPresent()) {
-            exist.get().setStatus(product.getStatus());
-        }else{
+            exist.get().setStatus("Hết hàng");
+            // save to db
+            repo.save(exist.get());
+         } else  {
             throw new EntityNotFoundException("Not found: " + id);
         }
+
     }
     public  Optional<Products> getProductById(int   id){return repo.findById(id);}
 

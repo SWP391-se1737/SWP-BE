@@ -39,11 +39,12 @@ public class ProductMovingService {
         }
 
     }
-    public void deleteProductMovingByMovingId(int MovingId, ProductMovings ProductMoving){
+    public void deleteProductMovingByMovingId(int MovingId){
         Optional<ProductMovings> exist = repo.findById(MovingId);
-        if(exist.isPresent()){
-            exist.get().setStatus(ProductMoving.isStatus());
-        }else{
+        if(exist.isPresent()) {
+            exist.get().setStatus(false);
+    }else{
+
             throw new RuntimeException("Not found: " + MovingId);
         }
     }

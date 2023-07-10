@@ -42,9 +42,9 @@ public class ProductMovingController {
     }
 
     @DeleteMapping("/deleteProductMovingByMovingId/{MovingId}")
-    public ResponseEntity<String> deleteProductMovingByMovingId(@PathVariable("MovingId") int MovingId,@RequestBody ProductMovings productMoving){
+    public ResponseEntity<String> deleteProductMovingByMovingId(@PathVariable("MovingId") int MovingId){
         try{
-            productMovingService.deleteProductMovingByMovingId(MovingId, productMoving);
+            productMovingService.deleteProductMovingByMovingId(MovingId);
             return ResponseEntity.status(200).body("Delete successfully");
         }catch (Exception e){
             return ResponseEntity.status(500).body("Error deleting productMoving" + e.getMessage());

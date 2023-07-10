@@ -1,7 +1,9 @@
 package com.example.miniProject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -13,9 +15,13 @@ public class Orders {
     @Column(name = "Id")
     private int id;
     @Column(name = "BuyAt")
-    private Date buyAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime buyAt;
     @Column(name = "ShipAt")
-    private Date shipAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime shipAt;
     @Column(name = "status")
     private String status;
     @Column(name = "BuyerId")
@@ -32,7 +38,7 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(int id, Date buyAt, Date shipAt, String status, int buyerid, int productId, float totalamount, int quantity, int buycampusid) {
+    public Orders(int id, LocalDateTime buyAt, LocalDateTime shipAt, String status, int buyerid, int productId, float totalamount, int quantity, int buycampusid) {
         this.id = id;
         this.buyAt = buyAt;
         this.shipAt = shipAt;
@@ -52,19 +58,19 @@ public class Orders {
         this.id = id;
     }
 
-    public Date getBuyAt() {
+    public LocalDateTime getBuyAt() {
         return buyAt;
     }
 
-    public void setBuyAt(Date buyAt) {
+    public void setBuyAt(LocalDateTime buyAt) {
         this.buyAt = buyAt;
     }
 
-    public Date getShipAt() {
+    public LocalDateTime getShipAt() {
         return shipAt;
     }
 
-    public void setShipAt(Date shipAt) {
+    public void setShipAt(LocalDateTime shipAt) {
         this.shipAt = shipAt;
     }
 

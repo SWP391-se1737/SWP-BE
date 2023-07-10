@@ -42,9 +42,9 @@ public class ProductController {
 
     @CrossOrigin
     @DeleteMapping("/deleteProductById/{id}")
-    public ResponseEntity<String> deleteProductById(@PathVariable("id") int id, @RequestBody Products product) {
+    public ResponseEntity<String> deleteProductById(@PathVariable("id") int id ){
         try {
-            productservice.deleteProductById(id,product);
+            productservice.deleteProductById(id);
             return ResponseEntity.status(200).body("Delete successfully");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error deleting product" + e.getMessage());
@@ -87,5 +87,6 @@ public class ProductController {
     public ResponseEntity<List<Products>> getProductBySellerId(@RequestParam("seller_id") int seller_id) {
         return ResponseEntity.status(200).body(productservice.getProductBySellerId(seller_id));
     }
+
 
 }

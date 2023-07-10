@@ -1,5 +1,6 @@
 package com.example.miniProject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,12 +24,13 @@ public class Products {
     @Column(name = "Price")
     private float price;
     @Column(name = "CreateAt")
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date createAT;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createAT;
     @Column(name = "Expire")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date expire;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime expire;
     @Column(name ="Quantity")
     private int quantity;
     @Column(name = "SellerId")
@@ -45,13 +47,13 @@ public class Products {
     public Products() {
     }
 
-    public Products(int id, String name, String image, String description, float price, Date createAT, Date expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampusid, int categoryid) {
+    public Products(int id, String name, String image, String description, float price, LocalDateTime createAT, LocalDateTime expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampusid, int categoryid) {
         this.id = id;
         this.name = name;
         this.image = image;
         this.description = description;
         this.price = price;
-        this.createAT = new Date();
+        this.createAT = createAT;
         this.expire = expire;
         this.status = status;
         this.quantity = quantity;
@@ -101,19 +103,19 @@ public class Products {
         this.price = price;
     }
 
-    public Date getCreateAT() {
+    public LocalDateTime getCreateAT() {
         return createAT;
     }
 
-    public void setCreateAT(Date create_AT) {
-        this.createAT = new Date();
+    public void setCreateAT(LocalDateTime create_AT) {
+        this.createAT = createAT;
     }
 
-    public Date getExpire() {
+    public LocalDateTime getExpire() {
         return expire;
     }
 
-    public void setExpire(Date expire) {
+    public void setExpire(LocalDateTime expire) {
         this.expire = expire;
     }
 
