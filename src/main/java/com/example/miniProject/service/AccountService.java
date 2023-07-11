@@ -59,6 +59,7 @@ public class AccountService {
             account.setPhone(newAccount.getPhone());
             account.setRole(newAccount.getRole());
             account.setStatus(newAccount.isStatus());
+            account.setPassword(newAccount.getPassword());
             return true;
         } else {
             return false;
