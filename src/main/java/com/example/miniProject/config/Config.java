@@ -1,6 +1,7 @@
 package com.example.miniProject.config;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.Configuration;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -10,14 +11,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
+@Configuration
 public class Config {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-
-//    public static String vnp_Returnurl = "http://localhost:8080/vnpay_jsp/vnpay_return.jsp";
+    public static String vnp_Returnurl = "http://localhost:8080/vnpay_jsp/vnpay_return.jsp";
+    public static String vnp_TmnCode = "KNV7ASZQ";
     public static String vnp_Version = "2.1.0";
     public static String vnp_Command = "pay";
-    public static String vnp_TmnCode = "W354QI6M";
-    public static String vnp_HashSecret = "ARVNZAAESOLHYVKDTHXDGONWKVCNLPJY";
+    public static String vnp_HashSecret = "ZVHGSYOLSXBEJFQXYMADKXQBXHUFPAEC";
+
+
 //    public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
 //    public static String md5(String message) {

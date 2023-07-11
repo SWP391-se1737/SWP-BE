@@ -19,12 +19,14 @@ public class Accounts {
     @Column(name = "Status")
     private boolean status;
 
+
     @Column(name = "Password")
     private String password;
 
     public Accounts(){}
 
     public Accounts(int id, String email, String phone, String role, boolean status,String password) {
+
         this.id = id;
         this.email = email;
         this.phone = phone;
