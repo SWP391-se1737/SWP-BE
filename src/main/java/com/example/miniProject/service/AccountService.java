@@ -6,6 +6,8 @@ import com.example.miniProject.model.Products;
 import com.example.miniProject.repository.AccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,9 +51,32 @@ public class AccountService {
             return false;
         }
     }
+
     public List<Accounts> searchAccountByEmail(String email){
         return repo.findByEmailContainingIgnoreCase(email);
     }
 
     public  Optional<Accounts> getAccountById(int id){return repo.findById(id);}
+
+    public boolean updateUser(Accounts newAccount, int accountId) {
+        Optional<Accounts> existingAccount = repo.findById(accountId);
+        if (existingAccount.isPresent()) {
+            Accounts account = existingAccount.get();
+            account.setPhone(newAccount.getPhone());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ResponseEntity<String> login(String email, String password) {
+        Optional<Accounts> optionalAccount = repo.findByEmailAndPassword(email, password);
+        if (optionalAccount.isPresent()) {
+            // Tài khoản hợp lệ, thực hiện các hành động sau khi đăng nhập thành công
+            return new ResponseEntity<>("Đăng nhập thành công", HttpStatus.OK);
+        } else {
+            // Tài khoản không hợp lệ
+            return new ResponseEntity<>("Email hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED);
+        }
+    }
 }

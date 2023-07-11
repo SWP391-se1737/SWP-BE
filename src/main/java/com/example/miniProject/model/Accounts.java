@@ -18,15 +18,17 @@ public class Accounts {
     private String role;
     @Column(name = "Status")
     private boolean status;
-
+    @Column(name = "Password")
+    private String password;
     public Accounts(){}
 
-    public Accounts(int id, String email, String phone, String role, boolean status) {
+    public Accounts(int id, String email, String phone, String role, boolean status, String password) {
         this.id = id;
         this.email = email;
         this.phone = phone;
         this.role = role;
         this.status = status;
+        this.password = password;
     }
 
     public int getId() {
@@ -67,5 +69,13 @@ public class Accounts {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

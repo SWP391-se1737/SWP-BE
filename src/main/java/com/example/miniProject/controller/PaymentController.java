@@ -2,6 +2,8 @@ package com.example.miniProject.controller;
 
 import com.example.miniProject.config.Config;
 import com.example.miniProject.model.Payment;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,19 +17,22 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
-@RequestMapping("/api/payment")
+@RequestMapping("/payment")
 public class PaymentController {
     @GetMapping("/createPayment")
-    public ResponseEntity<?> createPayment() throws UnsupportedEncodingException {
+    public ResponseEntity<?> createPayment(HttpServletRequest request) throws UnsupportedEncodingException {
 
 //        String orderType = req.getParameter("ordertype");
 //        long amount = Integer.parseInt(req.getParameter("amount"))*100;
 //        String bankCode = req.getParameter("bankCode");
         long amount = 1000000;
 
+
         String vnp_TxnRef = Config.getRandomNumber(8);
 //        String vnp_IpAddr = Config.getIpAddress(req);
         String vnp_TmnCode = Config.vnp_TmnCode;
+        String vnp_IpAddr = Config.getIpAddress(request);
+
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", Config.vnp_Version);
@@ -39,7 +44,9 @@ public class PaymentController {
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
         vnp_Params.put("vnp_Locale", "vn");
-//        vnp_Params.put("vnp_Returnurl", Config.vnp_Returnurl);
+        vnp_Params.put("vnp_Returnurl", Config.vnp_Returnurl);
+        vnp_Params.put("vnp_OrderType", "billpayment");
+        vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -83,6 +90,8 @@ public class PaymentController {
         payment.setStatus("OK");
         payment.setMessage("Successfully");
         payment.setURL(paymentUrl);
+
         return ResponseEntity.status(HttpStatus.OK).body(payment);
     }
+
 }
