@@ -30,7 +30,6 @@ public class AccountController {
         return "Account is added";
     }
 
-
     @DeleteMapping("/deleteAccount/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable int id){
         boolean check = false;
@@ -59,7 +58,6 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
         }
     }
-
 
     @GetMapping("/searchAccountByName")
     public ResponseEntity<Map<String, Object>> searchAccountByEmail(@RequestParam("email") String email) {
