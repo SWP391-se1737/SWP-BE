@@ -3,11 +3,13 @@ package com.example.miniProject.controller;
 import com.example.miniProject.config.Config;
 import com.example.miniProject.model.Payment;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
@@ -20,32 +22,31 @@ import java.util.*;
 @RequestMapping("/payment")
 public class PaymentController {
     @GetMapping("/createPayment")
-    public ResponseEntity<?> createPayment(HttpServletRequest request) throws UnsupportedEncodingException {
+    public ResponseEntity<?> createPayment(HttpServletRequest request, @RequestParam("amount") String amountStr) throws UnsupportedEncodingException {
 
-//        String orderType = req.getParameter("ordertype");
-//        long amount = Integer.parseInt(req.getParameter("amount"))*100;
-//        String bankCode = req.getParameter("bankCode");
-        long amount = 1000000;
-
+        String vnp_Version = "2.1.0";
+        String vnp_Command = "pay";
+        String orderType = "billpayment";
+        long amount = Long.parseLong(amountStr);
+        String bankCode = "NCB";
 
         String vnp_TxnRef = Config.getRandomNumber(8);
-//        String vnp_IpAddr = Config.getIpAddress(req);
-        String vnp_TmnCode = Config.vnp_TmnCode;
         String vnp_IpAddr = Config.getIpAddress(request);
-
+        String vnp_TmnCode = Config.vnp_TmnCode;
 
         Map<String, String> vnp_Params = new HashMap<>();
-        vnp_Params.put("vnp_Version", Config.vnp_Version);
-        vnp_Params.put("vnp_Command", Config.vnp_Command);
+        vnp_Params.put("vnp_Version", vnp_Version);
+        vnp_Params.put("vnp_Command", vnp_Command);
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
-        vnp_Params.put("vnp_CurrCode","VND");
-        vnp_Params.put("vnp_BankCode","NCB");
+        vnp_Params.put("vnp_CurrCode", "VND");
+        vnp_Params.put("vnp_BankCode", bankCode);
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_Returnurl", Config.vnp_Returnurl);
-        vnp_Params.put("vnp_OrderType", "billpayment");
+
+        vnp_Params.put("vnp_ReturnUrl", Config.vnp_Returnurl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
 
