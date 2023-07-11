@@ -27,26 +27,18 @@ public class OrderService {
         repo.save(order);
     }
 
-    public void updateOrderById(int id, Orders order) {
+    public void updateOrderById(int id, String status) {
         Optional<Orders> exist = repo.findById(id);
         System.out.println("Exist" + exist);
-        if( exist.isPresent()){
-           exist.get().setStatus(order.getStatus());
-        }else{
-
-                throw new EntityNotFoundException("Not found: " + id);
+        if(exist.isPresent()){
+            exist.get().setStatus(status);
+        } else {
+            throw new EntityNotFoundException("Order not found");
         }
     }
 
 
-    public void deleteOrderById(int id, Orders order){
-        Optional<Orders> exist = repo.findById(id);
-        if(exist.isPresent()) {
-            exist.get().setStatus(order.getStatus());
-        }else{
-            throw new EntityNotFoundException("Not found: " + id);
-        }
-    }
+
 
     public Optional<Orders> getOrderById(int id){
         return repo.findById(id);

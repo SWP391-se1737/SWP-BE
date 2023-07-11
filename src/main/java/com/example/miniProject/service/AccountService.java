@@ -3,6 +3,7 @@ package com.example.miniProject.service;
 
 import com.example.miniProject.model.Accounts;
 import com.example.miniProject.model.Products;
+import com.example.miniProject.model.Wallets;
 import com.example.miniProject.repository.AccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,22 @@ public class AccountService {
         return repo.findAll();
     }
 
+    // create account auto create wallets
     public void addAccount(Accounts acc) {
-        repo.save(acc);
+        try{
+            repo.save(acc);
+            // create wallet
+            Wallets wallet = new Wallets();
+            wallet.setUserid(acc.getId());
+            wallet.setBalance(0);
+            WalletsService walletService = new WalletsService();
+            walletService.createNewWallet(wallet);
+        }catch (Exception e){
+            throw new RuntimeException("Email already exists");
+        }
+
+
+
     }
 
     public boolean deleteAccount(int accID) {
@@ -46,6 +61,7 @@ public class AccountService {
             account.setPhone(newAccount.getPhone());
             account.setRole(newAccount.getRole());
             account.setStatus(newAccount.isStatus());
+            account.setPassword(newAccount.getPassword());
             return true;
         } else {
             return false;

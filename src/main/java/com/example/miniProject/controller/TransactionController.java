@@ -23,15 +23,7 @@ public class TransactionController {
         List<Transactions> list = transactionsService.getAllList();
         return ResponseEntity.status(200).body(list);
     }
-    @PostMapping("/createNewTransactions")
-    public ResponseEntity<String> createNew(@RequestBody Transactions data){
-        try {
-            transactionsService.createNewTransactions(data);
-            return ResponseEntity.status(200).body("Successfully!");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error creating Transaction" + e.getMessage());
-        }
-    }
+
     @PutMapping("/updateTransactionById")
     public ResponseEntity<String> updateTrans(@RequestParam("id") int id,@RequestBody Transactions data) {
         try {

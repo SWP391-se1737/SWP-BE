@@ -24,16 +24,7 @@ public class WalletController {
         List<Wallets> list = walletservice.getAllList();
         return ResponseEntity.status(200).body(list);
     }
-    @CrossOrigin
-    @PostMapping("/createNewWallet")
-    public ResponseEntity<String> createNew(@RequestBody Wallets wallets) {
-        try {
-            walletservice.createNewWallet(wallets);
-            return ResponseEntity.status(200).body("Successfully!");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error creating Wallet" + e.getMessage());
-        }
-    }
+
     @CrossOrigin
     @PutMapping("/updateWalletById")
     public String updateWallet(@RequestParam("id") int id,@RequestBody Wallets data) {
@@ -59,6 +50,12 @@ public class WalletController {
     @GetMapping("/getListById/{id}")
     public Optional<Wallets> getTransactionById(@PathVariable("id") int id){
         return walletservice.getWalletById(id);
+    }
+
+    @GetMapping("/getWalletByUserId/{userid}")
+    public ResponseEntity<List<Wallets>> getListByUserId(@PathVariable("userid") int userid){
+        List<Wallets> list = walletservice.getWalletByUserId(userid);
+        return ResponseEntity.status(200).body(list);
     }
 
 

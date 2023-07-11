@@ -59,4 +59,8 @@ public class CategoryService {
             return false;
         }
     }
+
+    public Optional<Categories> getCategoryById(int Id) {
+        return repo.findById(Id);
+    }
 }

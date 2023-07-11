@@ -10,20 +10,24 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Products,Integer> {
+    // describe the query to get all products
     List<Products> findByNameContainingIgnoreCase(String searchName);
-    //method này sẽ trả về danh sách các sản phẩm có tên chứa searchName
+
+    // describe the query to get all products by category id
     @Query("SELECT p FROM Products p WHERE p.categoryid = ?1")
     List<Products> findByCategory_id(int categoryid);
-    //method này sẽ trả về danh sách các sản phẩm có categoryid = categoryid
+
+    // describe the query to get all products by sell campus id
     List<Products> findAllByOrderByCreateATDesc();
-    //method này sẽ trả về danh sách các sản phẩm được sắp xếp theo thứ tự giảm dần của createAt
+
+    // describe the query to get all products by sell campus id
     @Query("SELECT p FROM Products p WHERE p.categoryid = :categoryid AND p.sellcampusid = :sellcampusid")
     List<Products> findByCategory_idAndSellCampus_id(@Param("categoryid") int categoryid, @Param("sellcampusid") int sellcampusid);
-    //method này sẽ trả về danh sách các sản phẩm có categoryid = categoryid và sellcampusid = sellcampusid
 
+    // describe the query to get all products by seller id
     @Query("SELECT p FROM Products p WHERE p.seller_id = ?1")
     List<Products> findBySeller_id(int seller_id);
-    //method này sẽ trả về danh sách các sản phẩm có seller_id = seller_id
+
 
 
 

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/Category")
@@ -52,5 +53,10 @@ public class CategoryController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Lỗi trong AccountController: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/getCategoryById/{id}")
+    public Optional<Categories> getCategoryById(@PathVariable("id") int id) {
+        return  categoryService.getCategoryById(id);
     }
 }
