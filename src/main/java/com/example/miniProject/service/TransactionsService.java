@@ -30,7 +30,6 @@ public class TransactionsService {
        System.out.println("Exist" + exist);
        if (exist.isPresent()) {
            exist.get().setAmount(transUpdate.getAmount());
-           exist.get().setExchange_id(transUpdate.getExchange_id());
            exist.get().setStatus(transUpdate.isStatus());
            exist.get().setOrder_id(transUpdate.getOrder_id());
            exist.get().setWallet_id(transUpdate.getWallet_id());

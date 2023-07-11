@@ -2,8 +2,11 @@ package com.example.miniProject.service;
 
 import com.example.miniProject.model.Categories;
 import com.example.miniProject.model.Products;
+import com.example.miniProject.model.Transactions;
+import com.example.miniProject.model.Wallets;
 import com.example.miniProject.repository.CategoriesRepository;
 import com.example.miniProject.repository.ProductRepository;
+import com.example.miniProject.repository.TransactionRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +22,30 @@ public class ProductService {
     @Autowired
     private ProductRepository repo;
 
+
     public List<Products> getAllProduct(){
 
         return repo.findAll();
     }
-
+    // create product auto create transaction minus wallwet 10 point
     public void createNewProduct(Products product){
             System.out.println(product.getCreateAT());
             repo.save(product);
+        Transactions trans = new Transactions();
+        trans.setAmount(product.getPrice());
+        trans.setProduct_id(product.getId());
+        trans.setStatus(true);
+        TransactionsService transService = new TransactionsService();
+        transService.createNewTransactions(trans);
+        WalletsService walletService = new WalletsService();
+        Optional<Wallets> wallets = walletService.getWalletById(product.getSeller_id());
+        if (wallets.isPresent() && wallets.get().getBalance() >= 10) {
+            Wallets wallet = wallets.get();
+            wallet.setBalance(wallet.getBalance() - 10);
+            walletService.updateWalletById(wallet.getId(), wallet);
+        } else {
+            throw new EntityNotFoundException("Wallet not enough balance " );
+        }
 
     }
 
@@ -42,7 +61,6 @@ public class ProductService {
             exist.get().setExpire(product.getExpire());
             exist.get().setStatus(product.getStatus());
             exist.get().setQuantity(product.getQuantity());
-            exist.get().setBuycampus_id(product.getBuycampus_id());
             exist.get().setSeller_id(product.getSeller_id());
             exist.get().setSellcampusid(product.getSellcampusid());
             exist.get().setCategoryid(product.getCategoryid());

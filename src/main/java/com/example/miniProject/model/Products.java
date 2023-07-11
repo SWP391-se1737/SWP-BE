@@ -35,8 +35,7 @@ public class Products {
     private int quantity;
     @Column(name = "SellerId")
     private int seller_id;
-    @Column(name = "BuyCampusId")
-    private int buycampus_id;
+
     @Column(name = "SellCampusId")
     private int sellcampusid;
     @Column(name = "CategoryID")
@@ -47,7 +46,7 @@ public class Products {
     public Products() {
     }
 
-    public Products(int id, String name, String image, String description, float price, LocalDateTime createAT, LocalDateTime expire,String status, int quantity, int seller_id, int buycampus_id, int sellcampusid, int categoryid) {
+    public Products(int id, String name, String image, String description, float price, LocalDateTime createAT, LocalDateTime expire,String status, int quantity, int seller_id,  int sellcampusid, int categoryid) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -58,7 +57,6 @@ public class Products {
         this.status = status;
         this.quantity = quantity;
         this.seller_id = seller_id;
-        this.buycampus_id = buycampus_id;
         this.sellcampusid = sellcampusid;
         this.categoryid = categoryid;
     }
@@ -133,14 +131,6 @@ public class Products {
 
     public void setSeller_id(int seller_id) {
         this.seller_id = seller_id;
-    }
-
-    public int getBuycampus_id() {
-        return buycampus_id;
-    }
-
-    public void setBuycampus_id(int buycampus_id) {
-        this.buycampus_id = buycampus_id;
     }
 
     public int getSellcampusid() {
