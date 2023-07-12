@@ -53,8 +53,8 @@ public class WalletController {
     }
 
     @GetMapping("/getWalletByUserId/{userid}")
-    public ResponseEntity<List<Wallets>> getListByUserId(@PathVariable("userid") int userid){
-        List<Wallets> list = walletservice.getWalletByUserId(userid);
+    public ResponseEntity<Optional<Wallets>> getListByUserId(@PathVariable("userid") int userid){
+        Optional<Wallets> list = walletservice.getWalletByUserId(userid);
         return ResponseEntity.status(200).body(list);
     }
 

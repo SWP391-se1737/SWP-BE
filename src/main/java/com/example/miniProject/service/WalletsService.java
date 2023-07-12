@@ -32,6 +32,7 @@ public class WalletsService {
         if (exist.isPresent()) {
             exist.get().setUserid(walletUpdate.getUserid());
             exist.get().setBalance(walletUpdate.getBalance());
+            repo.save(exist.get());
         } else {
             throw new EntityNotFoundException("Not found: " + id);
         }
@@ -42,6 +43,10 @@ public class WalletsService {
     }
     public  Optional<Wallets> getWalletById(int id){ return repo.findById(id);}
 
-    public List<Wallets> getWalletByUserId(int userid){ return repo.findByUserid(userid);}
+    public Optional<Wallets> getWalletByUserId(int userid){
+        List<Wallets> listWallet = repo.findByUserid(userid);
+        Wallets wallet = listWallet.get(0);
+        return Optional.of(wallet);
+    }
 
 }

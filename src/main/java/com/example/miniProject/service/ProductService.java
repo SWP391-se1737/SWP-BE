@@ -7,6 +7,7 @@ import com.example.miniProject.model.Wallets;
 import com.example.miniProject.repository.CategoriesRepository;
 import com.example.miniProject.repository.ProductRepository;
 import com.example.miniProject.repository.TransactionRepository;
+import com.example.miniProject.repository.WalletRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,33 +22,54 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
     private ProductRepository repo;
+    @Autowired
+    private TransactionRepository transRepo;
+
+    @Autowired
+    private WalletRepository walletRepo;
+
+    @Autowired
+
 
 
     public List<Products> getAllProduct(){
 
         return repo.findAll();
     }
-    // create product auto create transaction minus wallwet 10 point
-    public void createNewProduct(Products product){
-            System.out.println(product.getCreateAT());
+    // create product auto create transaction minus wallwet 10 point and bonus wallet admin 10 point
+    public void createNewProduct(Products product) {
+            // create product
             repo.save(product);
-        Transactions trans = new Transactions();
-        trans.setAmount(product.getPrice());
-        trans.setProduct_id(product.getId());
-        trans.setStatus(true);
-        TransactionsService transService = new TransactionsService();
-        transService.createNewTransactions(trans);
-        WalletsService walletService = new WalletsService();
-        Optional<Wallets> wallets = walletService.getWalletById(product.getSeller_id());
-        if (wallets.isPresent() && wallets.get().getBalance() >= 10) {
-            Wallets wallet = wallets.get();
-            wallet.setBalance(wallet.getBalance() - 10);
-            walletService.updateWalletById(wallet.getId(), wallet);
-        } else {
-            throw new EntityNotFoundException("Wallet not enough balance " );
+            System.out.println("Create Product success" + product);
+            // create transaction when create product
+            Transactions trans = new Transactions();
+            trans.setAmount(10);
+            trans.setProduct_id(product.getId());
+            trans.setStatus(true);
+            trans.setDeposit_id(null);
+            trans.setOrder_id(null);
+            trans.setId(0);
+            trans.setWallet_user(product.getSeller_id());
+            trans.setDescription("tạo sản phẩm");
+            transRepo.save(trans);
+            System.out.println("Create Transaction success" + trans);
+            // update wallet seller
+            List<Wallets> existWallet = walletRepo.findByUserid(product.getSeller_id());
+            Optional<Wallets> wallet = Optional.of(existWallet.get(0));
+            if (wallet.get().getBalance() < 10) {
+                throw new EntityNotFoundException("Not enough money");
+            }
+            wallet.get().setBalance(wallet.get().getBalance() - 10);
+            walletRepo.save(wallet.get());
+            System.out.println("Update Wallet success" + wallet);
+            // update wallet admin
+            List<Wallets> existWalletAdmin = walletRepo.findByUserid(3);
+            Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin.get(0));
+            walletAdmin.get().setBalance(walletAdmin.get().getBalance() + 10);
+            walletRepo.save(walletAdmin.get());
+            System.out.println("Update Wallet Admin success" + walletAdmin);
         }
 
-    }
 
     public void updateProductById(int id, Products product) {
         Optional<Products> exist = repo.findById(id);
@@ -64,6 +86,8 @@ public class ProductService {
             exist.get().setSeller_id(product.getSeller_id());
             exist.get().setSellcampusid(product.getSellcampusid());
             exist.get().setCategoryid(product.getCategoryid());
+            // save to db
+            repo.save(exist.get());
 
         } else {
 

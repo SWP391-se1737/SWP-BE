@@ -30,11 +30,11 @@ public class AccountService {
         try{
             repo.save(acc);
             // create wallet
-            Wallets wallet = new Wallets();
+           /* Wallets wallet = new Wallets();
             wallet.setUserid(acc.getId());
             wallet.setBalance(0);
             WalletsService walletService = new WalletsService();
-            walletService.createNewWallet(wallet);
+            walletService.createNewWallet(wallet);*/
         }catch (Exception e){
             throw new RuntimeException("Email already exists");
         }
