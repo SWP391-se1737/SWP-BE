@@ -54,8 +54,8 @@ public class ProductService {
             transRepo.save(trans);
             System.out.println("Create Transaction success" + trans);
             // update wallet seller
-            List<Wallets> existWallet = walletRepo.findByUserid(product.getSeller_id());
-            Optional<Wallets> wallet = Optional.of(existWallet.get(0));
+            Wallets existWallet = walletRepo.findByUserid(product.getSeller_id());
+            Optional<Wallets> wallet = Optional.of(existWallet);
             if (wallet.get().getBalance() < 10) {
                 throw new EntityNotFoundException("Not enough money");
             }
@@ -63,8 +63,8 @@ public class ProductService {
             walletRepo.save(wallet.get());
             System.out.println("Update Wallet success" + wallet);
             // update wallet admin
-            List<Wallets> existWalletAdmin = walletRepo.findByUserid(3);
-            Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin.get(0));
+            Wallets existWalletAdmin = walletRepo.findByUserid(3);
+            Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin);
             walletAdmin.get().setBalance(walletAdmin.get().getBalance() + 10);
             walletRepo.save(walletAdmin.get());
             System.out.println("Update Wallet Admin success" + walletAdmin);
