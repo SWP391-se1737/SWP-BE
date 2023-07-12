@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface TransactionRepository  extends JpaRepository<Transactions,Integer> {
 
-        @Query("SELECT t FROM Transactions t WHERE t.wallet_id = ?1")
-        List<Transactions> findByWallet_id(int wallet_id);
+        @Query("SELECT t FROM Transactions t WHERE t.wallet_user = ?1")
+        List<Transactions> findByWallet_user(int wallet_user);
 }
 

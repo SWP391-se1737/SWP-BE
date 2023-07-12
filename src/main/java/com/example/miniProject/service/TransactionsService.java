@@ -19,23 +19,24 @@ public class TransactionsService {
     private TransactionRepository repo;
 
    public List<Transactions> getAllList() {
+
        return repo.findAll();
    }
 
    public void createNewTransactions(Transactions data) {
        repo.save(data);
    }
-    public void updateTransactionsById ( int id, Transactions transUpdate){
-       Optional<Transactions> exist = repo.findById(id);
-       System.out.println("Exist" + exist);
-       if (exist.isPresent()) {
-           exist.get().setAmount(transUpdate.getAmount());
-           exist.get().setStatus(transUpdate.isStatus());
-           exist.get().setOrder_id(transUpdate.getOrder_id());
-           exist.get().setWallet_id(transUpdate.getWallet_id());
-       } else {
-           throw new EntityNotFoundException("Not found: " + id);
-       }
+    public void updateTransactionsById ( int id, String status){
+        Optional<Transactions> exist = repo.findById(id);
+        System.out.println("Exist" + exist);
+        if (exist.isPresent()) {
+            exist.get().setStatus(Boolean.parseBoolean(status));
+            repo.save(exist.get());
+        } else {
+            throw new EntityNotFoundException("Not found: " + id);
+        }
+
+
    }
    public void deleteTransactionsById(int entityId){
        repo.deleteById(entityId);
@@ -43,8 +44,8 @@ public class TransactionsService {
    }
    public  Optional<Transactions> getTransactionById(int id){ return repo.findById(id);}
 
-    public List<Transactions> getTransactionByWalletId(int wallet_id){
-        return repo.findByWallet_id(wallet_id);
+    public List<Transactions> getTransactionByWallet_user(int wallet_user){
+        return repo.findByWallet_user(wallet_user);
     }
 
 }

@@ -25,9 +25,9 @@ public class TransactionController {
     }
 
     @PutMapping("/updateTransactionById")
-    public ResponseEntity<String> updateTrans(@RequestParam("id") int id,@RequestBody Transactions data) {
+    public ResponseEntity<String> updateTrans(@RequestParam("id") int id,@RequestBody String  status) {
         try {
-            transactionsService.updateTransactionsById(id, data);
+            transactionsService.updateTransactionsById(id, status);
             return ResponseEntity.status(200).body("Successfully!");
         } catch (Exception err) {
             return ResponseEntity.status(500).body("Error updating Transaction" + err.getMessage());
@@ -48,9 +48,9 @@ public class TransactionController {
             return transactionsService.getTransactionById(id);
         }
 
-    @GetMapping("/getListByWalletId/{wallet_id}")
-     public ResponseEntity<List<Transactions>> getListByWalletId(@PathVariable("wallet_id") int wallet_id){
-        List<Transactions> list = transactionsService.getTransactionByWalletId(wallet_id);
+    @GetMapping("/getListByWallet_user/{wallet_user}")
+     public ResponseEntity<List<Transactions>> getListByWalletId(@PathVariable("wallet_user") int wallet_user){
+        List<Transactions> list = transactionsService.getTransactionByWallet_user(wallet_user);
         return ResponseEntity.status(200).body(list);
     }
 }

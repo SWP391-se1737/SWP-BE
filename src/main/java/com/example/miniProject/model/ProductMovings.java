@@ -20,14 +20,14 @@ public class ProductMovings {
     @Column(name = "ToLocation")
     private int ToLocation;
     @Column(name = "Status")
-    private boolean status;
+    private String status;
     @Column(name = "ShipperId")
     private int ShipperId;
 
     public ProductMovings() {
     }
 
-    public ProductMovings(int movingId, Date movingDate, Date arrivalDate, int fromLocation, int toLocation, boolean status, int shipperId) {
+    public ProductMovings(int movingId, Date movingDate, Date arrivalDate, int fromLocation, int toLocation, String status, int shipperId) {
         this.MovingId = movingId;
         this.MovingDate = movingDate;
         this.ArrivalDate = arrivalDate;
@@ -77,11 +77,10 @@ public class ProductMovings {
         ToLocation = toLocation;
     }
 
-    public boolean isStatus() {
+    public String getStatus() {
         return status;
     }
-
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

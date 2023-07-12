@@ -32,9 +32,9 @@ public class ProductMovingController {
         }
     }
     @PutMapping("/updateProductMovingByMovingId")
-    public ResponseEntity<String> updateProductMovingByMovingId(int MovingId, ProductMovings productMoving){
+    public ResponseEntity<String> updateProductMovingByMovingId(int MovingId, @RequestBody String status){
         try{
-            productMovingService.updateProductMovingByMovingId(MovingId, productMoving);
+            productMovingService.updateProductMovingByMovingId(MovingId, status);
             return ResponseEntity.status(200).body("Successfully!");
         }catch (Exception e){
             return ResponseEntity.status(500).body("Error updating productMoving" + e.getMessage());

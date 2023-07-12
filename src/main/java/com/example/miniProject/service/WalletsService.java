@@ -32,6 +32,7 @@ public class WalletsService {
         if (exist.isPresent()) {
             exist.get().setUserid(walletUpdate.getUserid());
             exist.get().setBalance(walletUpdate.getBalance());
+            repo.save(exist.get());
         } else {
             throw new EntityNotFoundException("Not found: " + id);
         }

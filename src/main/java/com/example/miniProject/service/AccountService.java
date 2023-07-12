@@ -27,7 +27,9 @@ public class AccountService {
 
     // create account auto create wallets
     public void addAccount(Accounts acc) {
+
         repo.save(acc);
+
     }
 
     public boolean deleteAccount(int accID) {

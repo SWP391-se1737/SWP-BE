@@ -43,6 +43,11 @@ public class Products {
     @Column(name = "Status")
     private String status;
 
+    @PrePersist
+    public void prePersist() {
+        createAT = LocalDateTime.now();
+    }
+
     public Products() {
     }
 

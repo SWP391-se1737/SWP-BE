@@ -53,10 +53,12 @@ public class WalletController {
         return walletservice.getWalletById(id);
     }
 
+
     @GetMapping("/getWalletBalanceByUserId/{userId}")
     public ResponseEntity<List<Double>> getWalletBalanceByUserId(@PathVariable("userId") int userId) {
         Wallets wallet = walletservice.getWalletByUserId(userId);
         List<Double> balanceList = new ArrayList<>();
+
 
 
 

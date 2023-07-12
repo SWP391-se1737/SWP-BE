@@ -22,19 +22,13 @@ public class ProductMovingService {
             repo.save(productMoving);
     }
 
-    public void updateProductMovingByMovingId( int MovingId, ProductMovings ProductMoving){
+    public void updateProductMovingByMovingId( int MovingId, String status){
         Optional<ProductMovings> exist = repo.findById(MovingId);
         System.out.println("Exist" + exist);
-        if(exist.isPresent()){
-            exist.get().setMovingDate(ProductMoving.getMovingDate());
-            exist.get().setArrivalDate(ProductMoving.getArrivalDate());
-            exist.get().setFromLocation(ProductMoving.getFromLocation());
-            exist.get().setToLocation(ProductMoving.getToLocation());
-            exist.get().setStatus(ProductMoving.isStatus());
-            exist.get().setShipperId(ProductMoving.getShipperId());
-
-        }else{
-
+        if (exist.isPresent()) {
+            exist.get().setStatus(status);
+            repo.save(exist.get());
+        } else {
             throw new RuntimeException("Not found: " + MovingId);
         }
 
@@ -42,7 +36,7 @@ public class ProductMovingService {
     public void deleteProductMovingByMovingId(int MovingId){
         Optional<ProductMovings> exist = repo.findById(MovingId);
         if(exist.isPresent()) {
-            exist.get().setStatus(false);
+            exist.get().setStatus("Thất bại");
     }else{
 
             throw new RuntimeException("Not found: " + MovingId);
