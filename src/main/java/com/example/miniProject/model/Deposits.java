@@ -14,20 +14,21 @@ public class Deposits {
     private float currency_from;
     @Column(name = "currency_to")
     private float currency_to;
-    @Column(name = "userID")
-    private int userID;
+    @Column(name = "user_id")
+    private int user_id;
     @Column(name = "exchangeProvider")
     private String exchangeProvider;
 
-    public Deposits(int id, float currency_from, float currency_to, int userID, String exchangeProvider) {
+    public Deposits(int id, float currency_from, float currency_to, int user_id, String exchangeProvider) {
         this.id = id;
         this.currency_from = currency_from;
         this.currency_to = currency_to;
-        this.userID = userID;
+        this.user_id = user_id;
         this.exchangeProvider = exchangeProvider;
     }
+    public Deposits(){
 
-    public Deposits(){}
+    }
 
     public int getId() {
         return id;
@@ -53,12 +54,12 @@ public class Deposits {
         this.currency_to = currency_to;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getExchangeProvider() {

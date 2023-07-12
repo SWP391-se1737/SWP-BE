@@ -35,7 +35,7 @@ public class DepositService {
         Optional<Deposits> existingDeposit = repo.findById(depoID);
         if (existingDeposit.isPresent()) {
             Deposits deposits = existingDeposit.get();
-            deposits.setUserID(newDeposit.getUserID());
+            deposits.setUser_id(newDeposit.getUser_id());
             deposits.setExchangeProvider(newDeposit.getExchangeProvider());
             deposits.setCurrency_to(newDeposit.getCurrency_to());
             deposits.setCurrency_from(newDeposit.getCurrency_from());

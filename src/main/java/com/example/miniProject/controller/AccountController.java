@@ -2,7 +2,9 @@ package com.example.miniProject.controller;
 
 import com.example.miniProject.model.Accounts;
 import com.example.miniProject.model.Products;
+import com.example.miniProject.model.Wallets;
 import com.example.miniProject.service.AccountService;
+import com.example.miniProject.service.WalletsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.*;
 public class AccountController {
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private WalletsService walletsService;
     @GetMapping("/listAccount")
     public List<Accounts> accountList(){
         return accountService.listAccount();
@@ -27,9 +31,17 @@ public class AccountController {
     @PostMapping("/addAccount")
     public String addAccount(@RequestBody Accounts acc){
         accountService.addAccount(acc);
+
+        // Tạo một ví tiền mới và gán UserId là Id của tài khoản vừa tạo
+        Wallets wallet = new Wallets();
+        wallet.setUserid(acc.getId());
+        wallet.setBalance(0);
+
+        // Lưu ví tiền vào cơ sở dữ liệu
+        walletsService.createNewWallet(wallet);
+
         return "Account is added";
     }
-
     @DeleteMapping("/deleteAccount/{id}")
     public ResponseEntity<String> deleteAccount(@PathVariable int id){
         boolean check = false;

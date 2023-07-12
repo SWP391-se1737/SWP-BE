@@ -1,7 +1,11 @@
 package com.example.miniProject.controller;
 
 import com.example.miniProject.config.Config;
+import com.example.miniProject.model.Accounts;
 import com.example.miniProject.model.Payment;
+import com.example.miniProject.model.Wallets;
+import com.example.miniProject.repository.AccountRepository;
+import com.example.miniProject.repository.WalletRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +25,22 @@ import java.util.*;
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {
+    @Autowired
+    private WalletRepository walletRepository;
+    @Autowired
+    private AccountRepository accountRepository;
     @GetMapping("/createPayment")
-    public ResponseEntity<?> createPayment(HttpServletRequest request, @RequestParam("amount") String amountStr) throws UnsupportedEncodingException {
+    public ResponseEntity<?> createPayment(HttpServletRequest request, @RequestParam("amount") String amountStr, @RequestParam("id") int accountId) throws UnsupportedEncodingException {
+
+        Accounts account = accountRepository.findById(accountId).orElse(null);
+        if (account == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Account not found");
+        }
 
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "billpayment";
-        long amount = Long.parseLong(amountStr);
+        long amount = Long.parseLong(amountStr)*100;
         String bankCode = "NCB";
 
         String vnp_TxnRef = Config.getRandomNumber(8);
@@ -46,7 +59,7 @@ public class PaymentController {
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
 
-        vnp_Params.put("vnp_ReturnUrl", Config.vnp_Returnurl);
+        vnp_Params.put("vnp_ReturnUrl", "http://127.0.0.1:5500/wallet.html");
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
 
@@ -92,6 +105,15 @@ public class PaymentController {
         payment.setMessage("Successfully");
         payment.setURL(paymentUrl);
 
+
+            double amountPaid = Double.parseDouble(amountStr); // Số tiền được thanh toán
+            Wallets wallet = walletRepository.findByUserid(accountId);
+            if (wallet != null) {
+                double currentBalance = wallet.getBalance();
+                double newBalance = currentBalance + amountPaid / 1000;
+                wallet.setBalance(newBalance);
+                walletRepository.save(wallet);
+            }
         return ResponseEntity.status(HttpStatus.OK).body(payment);
     }
 

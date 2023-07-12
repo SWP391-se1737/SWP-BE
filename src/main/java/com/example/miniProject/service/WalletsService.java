@@ -42,6 +42,7 @@ public class WalletsService {
     }
     public  Optional<Wallets> getWalletById(int id){ return repo.findById(id);}
 
-    public List<Wallets> getWalletByUserId(int userid){ return repo.findByUserid(userid);}
+    public Wallets getWalletByUserId(int userid){ return repo.findByUserid(userid);}
+
 
 }

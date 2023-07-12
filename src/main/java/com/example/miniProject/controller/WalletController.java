@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,12 +53,20 @@ public class WalletController {
         return walletservice.getWalletById(id);
     }
 
-    @GetMapping("/getWalletByUserId/{userid}")
-    public ResponseEntity<List<Wallets>> getListByUserId(@PathVariable("userid") int userid){
-        List<Wallets> list = walletservice.getWalletByUserId(userid);
-        return ResponseEntity.status(200).body(list);
-    }
+    @GetMapping("/getWalletBalanceByUserId/{userId}")
+    public ResponseEntity<List<Double>> getWalletBalanceByUserId(@PathVariable("userId") int userId) {
+        Wallets wallet = walletservice.getWalletByUserId(userId);
+        List<Double> balanceList = new ArrayList<>();
 
+
+
+
+            double balance = wallet.getBalance();
+            balanceList.add(balance);
+
+
+        return ResponseEntity.status(200).body(balanceList);
+    }
 
 
 }
