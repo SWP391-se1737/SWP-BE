@@ -107,6 +107,17 @@ public class ProductService {
         }
 
     }
+    public void deleteProductByStudent(int id){
+        Optional<Products> exist = repo.findById(id);
+        if(exist.isPresent()) {
+            exist.get().setStatus("Xóa bài");
+            // save to db
+            repo.save(exist.get());
+        } else  {
+            throw new EntityNotFoundException("Not found: " + id);
+        }
+
+    }
     public  Optional<Products> getProductById(int   id){return repo.findById(id);}
 
     public List<Products> searchProductByName(String name){

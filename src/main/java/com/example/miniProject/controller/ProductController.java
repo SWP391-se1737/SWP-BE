@@ -88,5 +88,14 @@ public class ProductController {
         return ResponseEntity.status(200).body(productservice.getProductBySellerId(seller_id));
     }
 
+    @PutMapping("/deleteProductByStudent")
+    public ResponseEntity<String> deleteProduct(@RequestParam("id") int id) {
+        try {
+            productservice.deleteProductByStudent(id);
+            return ResponseEntity.status(200).body("Successfully!");
+        } catch (Exception err) {
+            return ResponseEntity.status(500).body("Error updating product" + err.getMessage());
+        }
+    }
 
 }
