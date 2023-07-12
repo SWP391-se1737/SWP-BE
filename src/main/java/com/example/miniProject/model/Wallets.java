@@ -12,12 +12,12 @@ public class Wallets {
     @Column(name = "UserId")
     private int userid;
     @Column(name = "Balance")
-     private float balance;
+     private double balance;
 
     public Wallets() {
     }
 
-    public Wallets(int id, int userid, float balance) {
+    public Wallets(int id, int userid, double balance) {
         this.id = id;
         this.userid = userid;
         this.balance = balance;
@@ -39,11 +39,11 @@ public class Wallets {
         this.userid = userid;
     }
 
-    public float getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(float balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 }

@@ -27,19 +27,8 @@ public class AccountService {
 
     // create account auto create wallets
     public void addAccount(Accounts acc) {
-        try{
-            repo.save(acc);
-            // create wallet
-           /* Wallets wallet = new Wallets();
-            wallet.setUserid(acc.getId());
-            wallet.setBalance(0);
-            WalletsService walletService = new WalletsService();
-            walletService.createNewWallet(wallet);*/
-        }catch (Exception e){
-            throw new RuntimeException("Email already exists");
-        }
 
-
+        repo.save(acc);
 
     }
 

@@ -43,10 +43,7 @@ public class WalletsService {
     }
     public  Optional<Wallets> getWalletById(int id){ return repo.findById(id);}
 
-    public Optional<Wallets> getWalletByUserId(int userid){
-        List<Wallets> listWallet = repo.findByUserid(userid);
-        Wallets wallet = listWallet.get(0);
-        return Optional.of(wallet);
-    }
+    public Wallets getWalletByUserId(int userid){ return repo.findByUserid(userid);}
+
 
 }

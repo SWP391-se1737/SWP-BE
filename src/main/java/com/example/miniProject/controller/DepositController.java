@@ -22,7 +22,7 @@ public class DepositController {
     @PostMapping("/addDeposits")
     public String addDeposit(@RequestBody Deposits deposits){
         depositService.addDeposit(deposits);
-        return "Campus is added";
+        return "Deposit is added";
     }
 
     @PutMapping("/updateDeposit/{id}")
