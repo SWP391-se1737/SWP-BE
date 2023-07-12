@@ -24,7 +24,7 @@ public class OrderController {
     }
 
     @PostMapping("/createNewOrder")
-    public ResponseEntity<String> createNewOrder(Orders order) {
+    public ResponseEntity<String> createNewOrder(@RequestBody Orders order) {
         try {
             orderservice.createNewOrders(order);
             return ResponseEntity.status(200).body("Successfully!");

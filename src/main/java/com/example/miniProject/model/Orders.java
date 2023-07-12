@@ -18,7 +18,7 @@ public class Orders {
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime buyAt;
-    @Column(name = "ShipAt")
+    @Column(name = "ShipAt", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime shipAt;
