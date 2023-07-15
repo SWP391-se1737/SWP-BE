@@ -2,7 +2,10 @@ package com.example.miniProject.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -14,10 +17,9 @@ public class Orders {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
-    @Column(name = "BuyAt")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime buyAt;
+    @Column(name = "BuyAt", nullable = false, updatable = false)
+    @CreationTimestamp
+    private Timestamp buyAt;
     @Column(name = "ShipAt", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -38,7 +40,7 @@ public class Orders {
     public Orders() {
     }
 
-    public Orders(int id, LocalDateTime buyAt, LocalDateTime shipAt, String status, int buyerid, int productId, float totalamount, int quantity, int buycampusid) {
+    public Orders(int id, Timestamp buyAt, LocalDateTime shipAt, String status, int buyerid, int productId, float totalamount, int quantity, int buycampusid) {
         this.id = id;
         this.buyAt = buyAt;
         this.shipAt = shipAt;
@@ -58,11 +60,11 @@ public class Orders {
         this.id = id;
     }
 
-    public LocalDateTime getBuyAt() {
+    public Timestamp getBuyAt() {
         return buyAt;
     }
 
-    public void setBuyAt(LocalDateTime buyAt) {
+    public void setBuyAt(Timestamp buyAt) {
         this.buyAt = buyAt;
     }
 

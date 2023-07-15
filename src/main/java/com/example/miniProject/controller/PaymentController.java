@@ -3,6 +3,7 @@ package com.example.miniProject.controller;
 import com.example.miniProject.config.Config;
 import com.example.miniProject.model.Accounts;
 import com.example.miniProject.model.Payment;
+import com.example.miniProject.model.Transactions;
 import com.example.miniProject.model.Wallets;
 import com.example.miniProject.repository.AccountRepository;
 import com.example.miniProject.repository.WalletRepository;
@@ -113,6 +114,7 @@ public class PaymentController {
                 double newBalance = currentBalance + amountPaid / 1000;
                 wallet.setBalance(newBalance);
                 walletRepository.save(wallet);
+
             }
         return ResponseEntity.status(HttpStatus.OK).body(payment);
     }

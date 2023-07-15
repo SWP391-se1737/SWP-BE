@@ -2,9 +2,11 @@ package com.example.miniProject.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.security.PrivateKey;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -23,13 +25,12 @@ public class Products {
     private String description;
     @Column(name = "Price")
     private float price;
-    @Column(name = "CreateAt")
+    @Column(name = "CreateAt", nullable = false, updatable = false)
+   @CreationTimestamp
+    private Timestamp createAT;
+    @Column(name = "Expire", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createAT;
-    @Column(name = "Expire")
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime expire;
     @Column(name ="Quantity")
     private int quantity;
@@ -43,15 +44,12 @@ public class Products {
     @Column(name = "Status")
     private String status;
 
-    @PrePersist
-    public void prePersist() {
-        createAT = LocalDateTime.now();
-    }
+
 
     public Products() {
     }
 
-    public Products(int id, String name, String image, String description, float price, LocalDateTime createAT, LocalDateTime expire,String status, int quantity, int seller_id,  int sellcampusid, int categoryid) {
+    public Products(int id, String name, String image, String description, float price, Timestamp createAT, LocalDateTime expire,String status, int quantity, int seller_id,  int sellcampusid, int categoryid) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -106,11 +104,11 @@ public class Products {
         this.price = price;
     }
 
-    public LocalDateTime getCreateAT() {
+    public Timestamp getCreateAT() {
         return createAT;
     }
 
-    public void setCreateAT(LocalDateTime create_AT) {
+    public void setCreateAT(Timestamp createAT) {
         this.createAT = createAT;
     }
 

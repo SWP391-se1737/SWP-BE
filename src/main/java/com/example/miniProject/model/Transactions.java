@@ -1,6 +1,9 @@
 package com.example.miniProject.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "Transactions")
@@ -28,10 +31,14 @@ public class Transactions {
     @Column(name = "Description")
     private String description;
 
+    @Column(name = "Transaction_Datetime", nullable = false, updatable = false)
+    @CreationTimestamp
+    private Timestamp transaction_datetime;
+
     public Transactions() {
     }
 
-    public Transactions(int id, Integer order_id, int wallet_user, float amount, boolean status, Integer product_id, Integer deposit_id, String description) {
+    public Transactions(int id, Integer order_id, int wallet_user, float amount, boolean status, Integer product_id, Integer deposit_id, String description, Timestamp transaction_datetime) {
         this.id = id;
         this.order_id = order_id;
         this.wallet_user = wallet_user;
@@ -40,6 +47,7 @@ public class Transactions {
         this.product_id = product_id;
         this.deposit_id = deposit_id;
         this.description = description;
+        this.transaction_datetime = transaction_datetime;
     }
 
     public int getId() {
@@ -105,5 +113,13 @@ public class Transactions {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Timestamp getTransaction_datetime() {
+        return transaction_datetime;
+    }
+
+    public void setTransaction_datetime(Timestamp transaction_datetime) {
+        this.transaction_datetime = transaction_datetime;
     }
 }

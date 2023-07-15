@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -53,6 +54,7 @@ public class OrderService {
         trans.setDescription("mua hàng");
         trans.setDeposit_id(null);
         trans.setWallet_user(order.getBuyerid());
+        trans.setTransaction_datetime(new Timestamp(System.currentTimeMillis()));
         transRepo.save(trans);
         System.out.println("Create Transaction success" + trans);
         // update wallet buyer
@@ -83,13 +85,55 @@ public class OrderService {
     }
 
     public void updateOrderById(int id, String status) {
-        Optional<Orders> exist = repo.findById(id);
-        System.out.println("Exist" + exist);
-        if(exist.isPresent()){
-            exist.get().setStatus(status);
-        } else {
-            throw new EntityNotFoundException("Order not found");
+
+
+        if(status.equals("đã nhận hàng")) {
+
+            // update wallet admin
+            Orders existOrder = repo.findById(id).get();
+            Optional<Orders> order = Optional.of(existOrder);
+            Wallets existWalletAdmin = walletRepo.findByUserid(3);
+            Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin);
+            walletAdmin.get().setBalance(walletAdmin.get().getBalance() - existOrder.getTotalamount());
+            walletRepo.save(walletAdmin.get());
+            System.out.println("Update Wallet success" + walletAdmin);
+            //update wallet seller
+            Optional<Products> existProduct = productRepo.findById(existOrder.getProductId());
+            if (existProduct.isPresent()) {
+                Wallets existWalletSeller = walletRepo.findByUserid(existProduct.get().getSeller_id());
+                Optional<Wallets> walletSeller = Optional.of(existWalletSeller);
+                walletSeller.get().setBalance(walletSeller.get().getBalance() + existOrder.getTotalamount());
+                walletRepo.save(walletSeller.get());
+                System.out.println("Update Wallet success" + walletSeller);
+            }
+        }else if (status.equals("Thất bại")){
+            // update wallet buyer
+            Orders existOrder = repo.findById(id).get();
+            Optional<Orders> order = Optional.of(existOrder);
+            Wallets existWallet = walletRepo.findByUserid(existOrder.getBuyerid());
+            Optional<Wallets> wallet = Optional.of(existWallet);
+            wallet.get().setBalance(wallet.get().getBalance() + existOrder.getTotalamount());
+            walletRepo.save(wallet.get());
+            System.out.println("Update Wallet success" + wallet);
+            //update wallet admin
+            Wallets existWalletAdmin = walletRepo.findByUserid(3);
+            Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin);
+            walletAdmin.get().setBalance(walletAdmin.get().getBalance() - existOrder.getTotalamount());
+            walletRepo.save(walletAdmin.get());
+            System.out.println("Update Wallet success" + walletAdmin);
+            // set status product
+            Optional<Products> product = productRepo.findById(existOrder.getProductId());
+            if(product.isPresent()) {
+                product.get().setStatus("Còn hàng");
+                productRepo.save(product.get());
+                System.out.println("Update Product success" + product);
+            } else {
+                throw new EntityNotFoundException("Product not found");
+            }
+
+
         }
+
     }
 
 

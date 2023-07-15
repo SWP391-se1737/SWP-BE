@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +52,7 @@ public class ProductService {
             trans.setId(0);
             trans.setWallet_user(product.getSeller_id());
             trans.setDescription("tạo sản phẩm");
+            trans.setTransaction_datetime(new Timestamp(System.currentTimeMillis()));
             transRepo.save(trans);
             System.out.println("Create Transaction success" + trans);
             // update wallet seller
