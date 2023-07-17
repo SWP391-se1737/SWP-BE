@@ -40,6 +40,8 @@ public class OrderService {
     }
     public void createNewOrders(Orders order){
         try {
+            // create order
+
             repo.save(order);
             System.out.println("Create Order success" + order);
         } catch (Exception e) {

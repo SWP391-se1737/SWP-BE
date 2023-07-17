@@ -25,10 +25,11 @@ public class Products {
     private String description;
     @Column(name = "Price")
     private float price;
-    @Column(name = "CreateAt", nullable = false, updatable = false)
-   @CreationTimestamp
-    private Timestamp createAT;
-    @Column(name = "Expire", nullable = false, updatable = false)
+    @Column(name = "CreateAT")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createAT;
+    @Column(name = "Expire")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime expire;
@@ -49,7 +50,7 @@ public class Products {
     public Products() {
     }
 
-    public Products(int id, String name, String image, String description, float price, Timestamp createAT, LocalDateTime expire,String status, int quantity, int seller_id,  int sellcampusid, int categoryid) {
+    public Products(int id, String name, String image, String description, float price, LocalDateTime createAT, LocalDateTime expire,String status, int quantity, int seller_id,  int sellcampusid, int categoryid) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -104,11 +105,11 @@ public class Products {
         this.price = price;
     }
 
-    public Timestamp getCreateAT() {
+    public LocalDateTime getCreateAT() {
         return createAT;
     }
 
-    public void setCreateAT(Timestamp createAT) {
+    public void setCreateAT(LocalDateTime createAT) {
         this.createAT = createAT;
     }
 
