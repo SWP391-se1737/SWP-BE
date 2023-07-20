@@ -27,7 +27,10 @@ public class Transactions {
     private String status;
     @Column(name = "deposit_id", nullable = true)
 
-    private Integer deposit_id;@Column(name = "Transaction_Datetime", nullable = true, updatable = false)
+    private Integer deposit_id;
+
+    @Column(name = "Transaction_Datetime", nullable = true, updatable = false)
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
