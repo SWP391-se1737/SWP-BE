@@ -55,10 +55,20 @@ public class TransactionController {
         return ResponseEntity.status(200).body(list);
     }
 
-    @PostMapping("/addTransaction")
+   /* @PostMapping("/addTransaction")
     public String addDeposit(@RequestBody Transactions transactions){
         transactionsService.createNewTransactions(transactions);
         return "Transaction is added";
+    }*/
+
+    @PostMapping("/addTransaction")
+    public ResponseEntity<String> addDeposit(@RequestBody Transactions transactions){
+        try {
+            transactionsService.createNewTransactions(transactions);
+            return ResponseEntity.status(200).body("Transaction is added");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error adding Transaction" + e.getMessage());
+        }
     }
 }
 
