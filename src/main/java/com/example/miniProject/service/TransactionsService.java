@@ -30,7 +30,7 @@ public class TransactionsService {
         Optional<Transactions> exist = repo.findById(id);
         System.out.println("Exist" + exist);
         if (exist.isPresent()) {
-            exist.get().setStatus(Boolean.parseBoolean(status));
+            exist.get().setDescription(status);
             repo.save(exist.get());
         } else {
             throw new EntityNotFoundException("Not found: " + id);

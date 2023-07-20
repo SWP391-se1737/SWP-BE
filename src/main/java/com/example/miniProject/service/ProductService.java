@@ -46,7 +46,6 @@ public class ProductService {
             Transactions trans = new Transactions();
             trans.setAmount(10);
             trans.setProduct_id(product.getId());
-            trans.setStatus(true);
             trans.setDeposit_id(null);
             trans.setOrder_id(null);
             trans.setId(0);

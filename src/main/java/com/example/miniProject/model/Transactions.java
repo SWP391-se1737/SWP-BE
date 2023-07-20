@@ -1,5 +1,6 @@
 package com.example.miniProject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -19,31 +20,28 @@ public class Transactions {
     private int wallet_user;
     @Column(name = "Amount")
     private float amount;
-    @Column(name = "Status")
-    private boolean status;
-
 
     @Column(name = "Product_id", nullable = true)
     private Integer product_id;
 
     @Column(name = "deposit_id", nullable = true)
     private Integer deposit_id;
-    @Column(name = "Description")
+    @Column(name = "Status")
     private String description;
 
     @Column(name = "Transaction_Datetime", nullable = false, updatable = false)
     @CreationTimestamp
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp transaction_datetime;
 
     public Transactions() {
     }
 
-    public Transactions(int id, Integer order_id, int wallet_user, float amount, boolean status, Integer product_id, Integer deposit_id, String description, Timestamp transaction_datetime) {
+    public Transactions(int id, Integer order_id, int wallet_user, float amount, Integer product_id, Integer deposit_id, String description, Timestamp transaction_datetime) {
         this.id = id;
         this.order_id = order_id;
         this.wallet_user = wallet_user;
         this.amount = amount;
-        this.status = status;
         this.product_id = product_id;
         this.deposit_id = deposit_id;
         this.description = description;
@@ -82,13 +80,6 @@ public class Transactions {
         this.amount = amount;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
 
     public Integer getProduct_id() {
         return product_id;

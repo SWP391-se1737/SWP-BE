@@ -44,46 +44,56 @@ public class OrderService {
 
             repo.save(order);
             System.out.println("Create Order success" + order);
-        } catch (Exception e) {
-            throw new EntityNotFoundException("Create Order fail" + e);
-        }
-        // create transaction when create order
-        Transactions trans = new Transactions();
-        trans.setAmount(order.getTotalamount());
-        trans.setOrder_id(order.getId());
-        trans.setStatus(true);
-        trans.setId(0);
-        trans.setProduct_id(order.getProductId());
-        trans.setDescription("mua hàng");
-        trans.setDeposit_id(null);
-        trans.setWallet_user(order.getBuyerid());
-        trans.setTransaction_datetime(new Timestamp(System.currentTimeMillis()));
-        transRepo.save(trans);
-        System.out.println("Create Transaction success" + trans);
-        // update wallet buyer
-        Wallets existWallet = walletRepo.findByUserid(order.getBuyerid());
-        Optional<Wallets> wallet = Optional.of(existWallet);
-        if (wallet.get().getBalance() < order.getTotalamount()) {
-            throw new EntityNotFoundException("Not enough money");
-        } else {
-            wallet.get().setBalance(wallet.get().getBalance() - order.getTotalamount());
-            walletRepo.save(wallet.get());
-            System.out.println("Update Wallet success" + wallet);
-        }
-        //update wallet admin
-        Wallets existWalletAdmin = walletRepo.findByUserid(3);
-        Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin);
-        walletAdmin.get().setBalance(walletAdmin.get().getBalance() + order.getTotalamount());
-        walletRepo.save(walletAdmin.get());
-        System.out.println("Update Wallet success" + walletAdmin);
-        //set status product
-        Optional<Products> product = productRepo.findById(order.getProductId());
-        if(product.isPresent()) {
-            product.get().setStatus("Hết hàng");
-            productRepo.save(product.get());
-            System.out.println("Update Product success" + product);
-        } else {
-            throw new EntityNotFoundException("Product not found");
+
+            Optional<Products> product = productRepo.findById(order.getProductId());
+            if (product.isPresent()) {
+                if (product.get().getSellcampusid() != order.getBuycampusid()) {
+
+                }
+            } else {
+                throw new EntityNotFoundException("Product not found");
+            }
+
+
+            // create transaction when create order
+            Transactions trans = new Transactions();
+            trans.setAmount(order.getTotalamount());
+            trans.setOrder_id(order.getId());
+            trans.setId(0);
+            trans.setProduct_id(order.getProductId());
+            trans.setDescription("mua hàng");
+            trans.setDeposit_id(null);
+            trans.setWallet_user(order.getBuyerid());
+            trans.setTransaction_datetime(new Timestamp(System.currentTimeMillis()));
+            transRepo.save(trans);
+            System.out.println("Create Transaction success" + trans);
+            // update wallet buyer
+            Wallets existWallet = walletRepo.findByUserid(order.getBuyerid());
+            Optional<Wallets> wallet = Optional.of(existWallet);
+            if (wallet.get().getBalance() < order.getTotalamount()) {
+                throw new EntityNotFoundException("Not enough money");
+            } else {
+                wallet.get().setBalance(wallet.get().getBalance() - order.getTotalamount());
+                walletRepo.save(wallet.get());
+                System.out.println("Update Wallet success" + wallet);
+            }
+            //update wallet admin
+            Wallets existWalletAdmin = walletRepo.findByUserid(3);
+            Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin);
+            walletAdmin.get().setBalance(walletAdmin.get().getBalance() + order.getTotalamount());
+            walletRepo.save(walletAdmin.get());
+            System.out.println("Update Wallet success" + walletAdmin);
+            //set status product
+//        Optional<Products> product = productRepo.findById(order.getProductId());
+            if (product.isPresent()) {
+                product.get().setStatus("Hết hàng");
+                productRepo.save(product.get());
+                System.out.println("Update Product success" + product);
+            } else {
+                throw new EntityNotFoundException("Product not found");
+            }
+        }catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException(e);
         }
     }
 
