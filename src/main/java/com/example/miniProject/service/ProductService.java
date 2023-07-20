@@ -50,7 +50,7 @@ public class ProductService {
             trans.setOrder_id(null);
             trans.setId(0);
             trans.setWallet_user(product.getSeller_id());
-            trans.setDescription("tạo sản phẩm");
+            trans.setStatus("tạo sản phẩm");
             trans.setTransaction_datetime(new Timestamp(System.currentTimeMillis()));
             transRepo.save(trans);
             System.out.println("Create Transaction success" + trans);

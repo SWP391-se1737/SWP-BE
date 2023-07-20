@@ -27,9 +27,6 @@ public class Transactions {
     private String status;
     @Column(name = "deposit_id", nullable = true)
     private Integer deposit_id;
-    @Column(name = "Description")
-    private String description;
-
     @Column(name = "Transaction_Datetime", nullable = false, updatable = false)
     @CreationTimestamp
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -38,7 +35,7 @@ public class Transactions {
     public Transactions() {
     }
 
-    public Transactions(int id, Integer order_id, int wallet_user, float amount, Integer product_id, String status, Integer deposit_id, String description, Timestamp transaction_datetime) {
+    public Transactions(int id, Integer order_id, int wallet_user, float amount, Integer product_id, String status, Integer deposit_id, Timestamp transaction_datetime) {
         this.id = id;
         this.order_id = order_id;
         this.wallet_user = wallet_user;
@@ -46,7 +43,6 @@ public class Transactions {
         this.product_id = product_id;
         this.status = status;
         this.deposit_id = deposit_id;
-        this.description = description;
         this.transaction_datetime = transaction_datetime;
     }
 
@@ -104,14 +100,6 @@ public class Transactions {
 
     public void setDeposit_id(Integer deposit_id) {
         this.deposit_id = deposit_id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Timestamp getTransaction_datetime() {
