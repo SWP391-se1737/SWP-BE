@@ -23,10 +23,11 @@ public class Transactions {
 
     @Column(name = "Product_id", nullable = true)
     private Integer product_id;
-
+    @Column(name = "Status")
+    private String status;
     @Column(name = "deposit_id", nullable = true)
     private Integer deposit_id;
-    @Column(name = "Status")
+    @Column(name = "Description")
     private String description;
 
     @Column(name = "Transaction_Datetime", nullable = false, updatable = false)
@@ -37,12 +38,13 @@ public class Transactions {
     public Transactions() {
     }
 
-    public Transactions(int id, Integer order_id, int wallet_user, float amount, Integer product_id, Integer deposit_id, String description, Timestamp transaction_datetime) {
+    public Transactions(int id, Integer order_id, int wallet_user, float amount, Integer product_id, String status, Integer deposit_id, String description, Timestamp transaction_datetime) {
         this.id = id;
         this.order_id = order_id;
         this.wallet_user = wallet_user;
         this.amount = amount;
         this.product_id = product_id;
+        this.status = status;
         this.deposit_id = deposit_id;
         this.description = description;
         this.transaction_datetime = transaction_datetime;
@@ -80,7 +82,6 @@ public class Transactions {
         this.amount = amount;
     }
 
-
     public Integer getProduct_id() {
         return product_id;
     }
@@ -89,13 +90,20 @@ public class Transactions {
         this.product_id = product_id;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Integer getDeposit_id() {
         return deposit_id;
     }
 
     public void setDeposit_id(Integer deposit_id) {
         this.deposit_id = deposit_id;
-
     }
 
     public String getDescription() {

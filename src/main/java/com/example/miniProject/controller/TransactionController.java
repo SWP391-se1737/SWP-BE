@@ -1,5 +1,6 @@
 package com.example.miniProject.controller;
 
+import com.example.miniProject.model.Deposits;
 import com.example.miniProject.model.Transactions;
 
 import com.example.miniProject.service.TransactionsService;
@@ -52,6 +53,12 @@ public class TransactionController {
      public ResponseEntity<List<Transactions>> getListByWalletId(@PathVariable("wallet_user") int wallet_user){
         List<Transactions> list = transactionsService.getTransactionByWallet_user(wallet_user);
         return ResponseEntity.status(200).body(list);
+    }
+
+    @PostMapping("/addTransaction")
+    public String addDeposit(@RequestBody Transactions transactions){
+        transactionsService.createNewTransactions(transactions);
+        return "Transaction is added";
     }
 }
 

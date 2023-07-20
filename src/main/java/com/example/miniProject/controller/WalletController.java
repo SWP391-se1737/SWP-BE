@@ -58,15 +58,8 @@ public class WalletController {
     public ResponseEntity<List<Double>> getWalletBalanceByUserId(@PathVariable("userId") int userId) {
         Wallets wallet = walletservice.getWalletByUserId(userId);
         List<Double> balanceList = new ArrayList<>();
-
-
-
-
-
             double balance = wallet.getBalance();
             balanceList.add(balance);
-
-
         return ResponseEntity.status(200).body(balanceList);
     }
 
