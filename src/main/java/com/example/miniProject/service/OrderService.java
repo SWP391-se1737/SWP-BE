@@ -1,9 +1,6 @@
 package com.example.miniProject.service;
 
-import com.example.miniProject.model.Orders;
-import com.example.miniProject.model.Products;
-import com.example.miniProject.model.Transactions;
-import com.example.miniProject.model.Wallets;
+import com.example.miniProject.model.*;
 import com.example.miniProject.repository.OrderRepository;
 import com.example.miniProject.repository.ProductRepository;
 import com.example.miniProject.repository.TransactionRepository;
@@ -48,6 +45,7 @@ public class OrderService {
             Optional<Products> product = productRepo.findById(order.getProductId());
             if (product.isPresent()) {
                 if (product.get().getSellcampusid() != order.getBuycampusid()) {
+                    MovingItems movingItems = new MovingItems();
 
                 }
             } else {
