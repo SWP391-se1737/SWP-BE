@@ -20,9 +20,9 @@ public class DepositController {
         return depositService.listDeposit();
     }
     @PostMapping("/addDeposits")
-    public String addDeposit(@RequestBody Deposits deposits){
-        depositService.addDeposit(deposits);
-        return "Deposit is added";
+    public int addDeposit(@RequestBody Deposits deposits) {
+        int depositId = depositService.addDeposit(deposits);
+        return depositId;
     }
 
     @PutMapping("/updateDeposit/{id}")
