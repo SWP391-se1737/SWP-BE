@@ -49,7 +49,6 @@ public class Transactions {
         this.product_id = product_id;
         this.status = status;
         this.deposit_id = deposit_id;
-
         this.transaction_datetime = transaction_datetime;
     }
 

@@ -18,8 +18,9 @@ public class DepositService {
     public List<Deposits> listDeposit(){
         return repo.findAll();
     }
-    public void addDeposit(Deposits deposits) {
-        repo.save(deposits);
+    public int addDeposit(Deposits deposits) {
+        Deposits savedDeposit = repo.save(deposits);
+        return savedDeposit.getId(); // Giả sử ID của Deposit được lưu trong trường "id"
     }
 
     public boolean deleteDeposit(int depoID) {
