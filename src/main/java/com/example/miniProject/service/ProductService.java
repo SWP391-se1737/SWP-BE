@@ -100,7 +100,7 @@ public class ProductService {
     public void deleteProductById(int id){
          Optional<Products> exist = repo.findById(id);
         if(exist.isPresent()) {
-            exist.get().setStatus("Hết hàng");
+            exist.get().setStatus("Hết hạn");
             // save to db
             repo.save(exist.get());
          } else  {

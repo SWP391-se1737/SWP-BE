@@ -1,33 +1,45 @@
 package com.example.miniProject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
 @Table(name = "ProductMovings")
+//@JsonNaming(PropertyNamingStrategy.UpperCamelCaseStrategy.class)
 public class ProductMovings {
 
     @Id
     @Column(name = "MovingId")
     private int MovingId;
-    @Column(name= "MovingDate")
-    private Date MovingDate;
+    @Column(name= "MovingDate", nullable = true)
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp MovingDate;
     @Column(name = "ArrivalDate")
-    private Date ArrivalDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Timestamp ArrivalDate;
     @Column(name = "FromLocation")
     private int FromLocation;
     @Column(name = "ToLocation")
     private int ToLocation;
     @Column(name = "Status")
     private String status;
-    @Column(name = "ShipperId")
-    private int ShipperId;
+    @Column(name = "ShipperId",nullable = true)
+    private Integer ShipperId;
 
     public ProductMovings() {
     }
 
-    public ProductMovings(int movingId, Date movingDate, Date arrivalDate, int fromLocation, int toLocation, String status, int shipperId) {
+    public ProductMovings(int movingId, Timestamp movingDate, Timestamp arrivalDate, int fromLocation, int toLocation, String status, Integer shipperId) {
         this.MovingId = movingId;
         this.MovingDate = movingDate;
         this.ArrivalDate = arrivalDate;
@@ -45,19 +57,23 @@ public class ProductMovings {
         MovingId = movingId;
     }
 
-    public Date getMovingDate() {
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("MovingDate")
+    public Timestamp getMovingDate() {
         return MovingDate;
     }
 
-    public void setMovingDate(Date movingDate) {
+    public void setMovingDate(Timestamp movingDate) {
         MovingDate = movingDate;
     }
 
-    public Date getArrivalDate() {
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonProperty("ArrivalDate")
+    public Timestamp getArrivalDate() {
         return ArrivalDate;
     }
 
-    public void setArrivalDate(Date arrivalDate) {
+    public void setArrivalDate(Timestamp arrivalDate) {
         ArrivalDate = arrivalDate;
     }
 
@@ -84,11 +100,11 @@ public class ProductMovings {
         this.status = status;
     }
 
-    public int getShipperId() {
+    public Integer getShipperId() {
         return ShipperId;
     }
 
-    public void setShipperId(int shipperId) {
+    public void setShipperId(Integer shipperId) {
         ShipperId = shipperId;
     }
 }

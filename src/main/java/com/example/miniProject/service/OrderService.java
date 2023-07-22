@@ -1,10 +1,7 @@
 package com.example.miniProject.service;
 
 import com.example.miniProject.model.*;
-import com.example.miniProject.repository.OrderRepository;
-import com.example.miniProject.repository.ProductRepository;
-import com.example.miniProject.repository.TransactionRepository;
-import com.example.miniProject.repository.WalletRepository;
+import com.example.miniProject.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +27,10 @@ public class OrderService {
 
     @Autowired
     private ProductRepository productRepo;
+    @Autowired
+    private MovingItemRepository movingItemRepo;
+    @Autowired
+    private ProductMovingRepository productMovingRepo;
 
     public List<Orders> getAllOrders(){
 
@@ -43,10 +44,28 @@ public class OrderService {
             System.out.println("Create Order success" + order);
 
             Optional<Products> product = productRepo.findById(order.getProductId());
+
             if (product.isPresent()) {
                 if (product.get().getSellcampusid() != order.getBuycampusid()) {
+                    //create moving item
                     MovingItems movingItems = new MovingItems();
-
+                    movingItems.setId(0);
+                    movingItems.setProductID(order.getProductId());
+                    movingItemRepo.save(movingItems);
+                    System.out.println("Create Moving Item success" + movingItems);
+                    //create product moving
+                    ProductMovings productMovings = new ProductMovings();
+                    productMovings.setMovingId(movingItems.getId());
+                    productMovings.setMovingDate(new Timestamp(System.currentTimeMillis()));
+                    productMovings.setArrivalDate(null);
+                    productMovings.setFromLocation(product.get().getSellcampusid());
+                    productMovings.setToLocation(order.getBuycampusid());
+                    productMovings.setStatus("Đang chuẩn bị");
+                    productMovings.setShipperId(null);
+                    productMovingRepo.save(productMovings);
+                    System.out.println("Create Product Moving success" + productMovings);
+                }else {
+                    throw new EntityNotFoundException("Product is in the same campus");
                 }
             } else {
                 throw new EntityNotFoundException("Product not found");
@@ -171,6 +190,50 @@ public class OrderService {
         }
 
 
+    }
+    public void deleteOrderById(int id) {
+        Optional<Orders> order = repo.findById(id);
+        if(order.isPresent()) {
+            order.get().setStatus("hủy đơn hàng");
+            repo.save(order.get());
+            // update wallet buyer
+            Wallets existWallet = walletRepo.findByUserid(order.get().getBuyerid());
+            Optional<Wallets> wallet = Optional.of(existWallet);
+            wallet.get().setBalance(wallet.get().getBalance() + order.get().getTotalamount());
+            walletRepo.save(wallet.get());
+            System.out.println("Update Wallet success" + wallet);
+            //update wallet admin
+            Wallets existWalletAdmin = walletRepo.findByUserid(3);
+            Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin);
+            walletAdmin.get().setBalance(walletAdmin.get().getBalance() - order.get().getTotalamount());
+            walletRepo.save(walletAdmin.get());
+            System.out.println("Update Wallet success" + walletAdmin);
+            // set status product
+            Optional<Products> product = productRepo.findById(order.get().getProductId());
+            if (product.isPresent()) {
+                product.get().setStatus("Còn hàng");
+                productRepo.save(product.get());
+                System.out.println("Update Product success" + product);
+            } else {
+                throw new EntityNotFoundException("Product not found");
+            }
+            System.out.println("Delete Order success" + order);
+            // create transaction
+            Transactions transaction = new Transactions();
+            transaction.setId(0);
+            transaction.setOrder_id(order.get().getId());
+            transaction.setWallet_user(order.get().getBuyerid());
+            transaction.setAmount(order.get().getTotalamount());
+            transaction.setProduct_id(order.get().getProductId());
+            transaction.setDeposit_id(null);
+            transaction.setStatus("hủy hàng");
+            transaction.setTransaction_datetime(new Timestamp(System.currentTimeMillis()));
+            transRepo.save(transaction);
+            System.out.println("Create Transaction success" + transaction);
+
+        } else {
+            throw new EntityNotFoundException("Order not found");
+        }
     }
 
 

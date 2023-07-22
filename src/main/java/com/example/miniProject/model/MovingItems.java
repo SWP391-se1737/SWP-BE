@@ -8,9 +8,9 @@ public class MovingItems {
     @jakarta.persistence.Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "Id")
     private int id;
-    @Column(name = "productID")
+    @Column(name = "ProductId")
     private int productID;
 
     public MovingItems(int id, int productID) {

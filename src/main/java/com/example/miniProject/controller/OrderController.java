@@ -43,7 +43,15 @@ public class OrderController {
             return ResponseEntity.status(500).body("Error updating order" + err.getMessage());
         }
     }
-
+    @DeleteMapping("/deleteOrderById/{id}")
+    public ResponseEntity<String> deleteOrderById(@PathVariable("id") int id) {
+        try {
+            orderservice.deleteOrderById(id);
+            return ResponseEntity.status(200).body("Successfully!");
+        } catch (Exception err) {
+            return ResponseEntity.status(500).body("Error deleting order" + err.getMessage());
+        }
+    }
 
 
     @GetMapping("/getOrderById/{id}")
