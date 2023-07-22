@@ -155,6 +155,18 @@ public class ProductService {
             return repo.findByCategory_idAndSellCampus_id(category_id, sellcampus_id);
         }
     }
+    
+    public void autoUpdateProductStatus(){
+        List<Products> products = repo.findAll();
+        for (Products product : products) {
+            if (product.getStatus().equals("Còn hàng")) {
+                if (product.getExpire().isBefore(new Timestamp(System.currentTimeMillis()).toLocalDateTime())) {
+                    product.setStatus("Hết hạn");
+                    repo.save(product);
+                }
+            }
+        }
+    }
 
     public List<Products> getProductBySellerId(int seller_id){
         return repo.findBySeller_id(seller_id);

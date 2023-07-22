@@ -5,11 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EntityScan("com.example.miniProject.model") // Đặt tên package cho quét các entity
 @EnableJpaRepositories(basePackages ="com.example.miniProject.repository") // Đặt tên package cho quét các repository
 @ComponentScan("com.example.miniProject")
+@EnableScheduling
 public class MiniProjectApplication {
 
 	public static void main(String[] args) {
