@@ -117,7 +117,7 @@ public class OrderService {
     public void updateOrderById(int id, String status) {
 
 
-        if(status.equals("đã nhận hàng")) {
+        if(status.equals("Đã nhận hàng")) {
             // update wallet admin
             Optional<Orders> order = repo.findById(id);
             if (order.isPresent()) {
@@ -144,7 +144,7 @@ public class OrderService {
             }
             order.get().setStatus(status);
             repo.save(order.get());
-        }else if (status.equals("Thất bại")){
+        }else if (status.equals("Không nhận hàng")){
             // update wallet buyer
 
             Optional<Orders> order = repo.findById(id);
@@ -194,7 +194,7 @@ public class OrderService {
     public void deleteOrderById(int id) {
         Optional<Orders> order = repo.findById(id);
         if(order.isPresent()) {
-            order.get().setStatus("hủy đơn hàng");
+            order.get().setStatus("Hủy đơn hàng");
             repo.save(order.get());
             // update wallet buyer
             Wallets existWallet = walletRepo.findByUserid(order.get().getBuyerid());
