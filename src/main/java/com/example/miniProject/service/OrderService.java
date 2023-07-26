@@ -64,8 +64,6 @@ public class OrderService {
                     productMovings.setShipperId(null);
                     productMovingRepo.save(productMovings);
                     System.out.println("Create Product Moving success" + productMovings);
-                }else {
-                    throw new EntityNotFoundException("Product is in the same campus");
                 }
             } else {
                 throw new EntityNotFoundException("Product not found");
