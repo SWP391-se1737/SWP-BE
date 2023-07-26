@@ -70,5 +70,10 @@ public class TransactionController {
             return ResponseEntity.status(500).body("Error adding Transaction" + e.getMessage());
         }
     }
+    @GetMapping("/getListByDateTime")
+    public ResponseEntity<List<Transactions>> getListByDateTime(){
+        List<Transactions> list = transactionsService.getTransactionByDateTime();
+        return ResponseEntity.status(200).body(list);
+    }
 }
 

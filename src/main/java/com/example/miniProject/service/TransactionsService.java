@@ -48,5 +48,9 @@ public class TransactionsService {
         return repo.findByWallet_user(wallet_user);
     }
 
+    public List<Transactions> getTransactionByDateTime(){
+        return repo.findAllByOrderByTransaction_dateTimeDesc();
+    }
+
 }
 

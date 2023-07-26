@@ -14,5 +14,7 @@ public interface TransactionRepository  extends JpaRepository<Transactions,Integ
 
         @Query("SELECT t FROM Transactions t WHERE t.wallet_user = ?1")
         List<Transactions> findByWallet_user(int wallet_user);
+        @Query("SELECT t FROM Transactions t ORDER BY t.transaction_datetime DESC")
+        List<Transactions> findAllByOrderByTransaction_dateTimeDesc();
 }
 

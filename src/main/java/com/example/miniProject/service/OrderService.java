@@ -34,7 +34,7 @@ public class OrderService {
 
     public List<Orders> getAllOrders(){
 
-        return repo.findAll();
+        return repo.findAllByOrderByBuyAtDesc();
     }
     public void createNewOrders(Orders order){
         try {
@@ -244,4 +244,7 @@ public class OrderService {
     public List<Orders> getOrderByBuyerId(int buyerid){
         return repo.findByBuyerid(buyerid);
     }
+
+
+
 }

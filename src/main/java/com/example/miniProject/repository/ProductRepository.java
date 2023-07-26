@@ -17,7 +17,7 @@ public interface ProductRepository extends JpaRepository<Products,Integer> {
     @Query("SELECT p FROM Products p WHERE p.categoryid = ?1")
     List<Products> findByCategory_id(int categoryid);
 
-    // describe the query to get all products by sell campus id
+    // describe the query to get all products by CreateAT Desc
     List<Products> findAllByOrderByCreateATDesc();
 
     // describe the query to get all products by sell campus id
