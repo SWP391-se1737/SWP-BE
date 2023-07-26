@@ -169,6 +169,6 @@ public class ProductService {
     }
 
     public List<Products> getProductBySellerId(int seller_id){
-        return repo.findBySeller_id(seller_id);
+        return repo.findBySellerIdOrderByCreateATDesc(seller_id);
     }
 }

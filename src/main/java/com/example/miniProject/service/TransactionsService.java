@@ -45,7 +45,7 @@ public class TransactionsService {
    public  Optional<Transactions> getTransactionById(int id){ return repo.findById(id);}
 
     public List<Transactions> getTransactionByWallet_user(int wallet_user){
-        return repo.findByWallet_user(wallet_user);
+        return repo.findByWallet_userOrderByTransactionDatetimeDesc(wallet_user);
     }
 
     public List<Transactions> getTransactionByDateTime(){

@@ -242,7 +242,7 @@ public class OrderService {
     }
 
     public List<Orders> getOrderByBuyerId(int buyerid){
-        return repo.findByBuyerid(buyerid);
+        return repo.findByBuyerIdAndOrderByBuyAtDesc(buyerid);
     }
 
 
