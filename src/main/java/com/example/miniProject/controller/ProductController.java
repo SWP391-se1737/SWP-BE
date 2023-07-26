@@ -88,7 +88,7 @@ public class ProductController {
         return ResponseEntity.status(200).body(productservice.getProductBySellerId(seller_id));
     }
 
-    @PutMapping("/deleteProductByStudent")
+    @DeleteMapping("/deleteProductByStudent")
     public ResponseEntity<String> deleteProduct(@RequestParam("id") int id) {
         try {
             productservice.deleteProductByStudent(id);
