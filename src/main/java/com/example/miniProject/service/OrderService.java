@@ -126,6 +126,7 @@ public class OrderService {
                 walletRepo.save(walletAdmin.get());
                 System.out.println("Update Wallet success" + walletAdmin);
 
+
             } else {
                 throw new EntityNotFoundException("Order not found");
             }
@@ -142,6 +143,18 @@ public class OrderService {
             }
             order.get().setStatus(status);
             repo.save(order.get());
+            // create transaction
+            Transactions trans = new Transactions();
+            trans.setId(0);
+            trans.setOrder_id(order.get().getId());
+            trans.setWallet_user(3);
+            trans.setAmount(order.get().getTotalamount());
+            trans.setProduct_id(order.get().getProductId());
+            trans.setDeposit_id(null);
+            trans.setStatus("Admin chuyển tiền Seller");
+            trans.setTransaction_datetime(new Timestamp(System.currentTimeMillis()));
+            transRepo.save(trans);
+
         }else if (status.equals("Không nhận hàng")){
             // update wallet buyer
 
@@ -159,7 +172,7 @@ public class OrderService {
                 Optional<Wallets> walletAdmin = Optional.of(existWalletAdmin);
                 walletAdmin.get().setBalance(walletAdmin.get().getBalance() - order.get().getTotalamount());
                 walletRepo.save(walletAdmin.get());
-                System.out.println("Update Wallet success" + walletAdmin);
+                System.out.println("Update Wallet  success" + walletAdmin);
                 // set status product
                 Optional<Products> product = productRepo.findById(order.get().getProductId());
                 if (product.isPresent()) {
@@ -171,6 +184,18 @@ public class OrderService {
                 }
                 order.get().setStatus(status);
                 repo.save(order.get());
+                //create transaction when update wallet
+                Transactions tran = new Transactions();
+                tran.setId(0);
+                tran.setOrder_id(order.get().getId());
+                tran.setWallet_user(3);
+                tran.setAmount(order.get().getTotalamount());
+                tran.setProduct_id(order.get().getProductId());
+                tran.setDeposit_id(null);
+                tran.setStatus("Admin chuyển tiền Buyer");
+                tran.setTransaction_datetime(new Timestamp(System.currentTimeMillis()));
+                transRepo.save(tran);
+
             } else {
                 throw new EntityNotFoundException("Order not found");
             }
