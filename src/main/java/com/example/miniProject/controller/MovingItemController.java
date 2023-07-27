@@ -25,8 +25,6 @@ public class MovingItemController {
         return "Items is added";
     }
 
-
-
     @DeleteMapping("/deleteItems/{id}")
     public ResponseEntity<String> deleteItem(@PathVariable int id){
         boolean check = false;

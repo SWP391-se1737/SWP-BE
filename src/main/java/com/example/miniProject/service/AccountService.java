@@ -75,10 +75,14 @@ public class AccountService {
     public Accounts login(String email, String password) {
         Optional<Accounts> optionalAccount = repo.findByEmailAndPassword(email, password);
         if (optionalAccount.isPresent()) {
-            Accounts  acc = optionalAccount.get();
-            return new Accounts(acc.getId(), acc.getEmail(), acc.getPhone(), acc.getRole(), acc.isStatus(), acc.getPassword());
-            // Tài khoản hợp lệ, thực hiện các hành động sau khi đăng nhập thành công
-
+            Accounts acc = optionalAccount.get();
+            if (acc.getRole().equalsIgnoreCase("Admin")) {
+                return new Accounts(acc.getId(), acc.getEmail(), acc.getPhone(), acc.getRole(), acc.isStatus(), acc.getPassword());
+                // Tài khoản hợp lệ và có role Admin, thực hiện các hành động sau khi đăng nhập thành công
+            } else {
+                // Tài khoản hợp lệ, nhưng không có quyền Admin
+                return null;
+            }
         } else {
             // Tài khoản không hợp lệ
             return null;
