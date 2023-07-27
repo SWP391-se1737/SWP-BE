@@ -31,8 +31,8 @@ public class ProductMovingController {
             return ResponseEntity.status(500).body("Error creating productMoving" + e.getMessage());
         }
     }
-    @PutMapping("/updateProductMovingByMovingId")
-    public ResponseEntity<String> updateProductMovingByMovingId(int MovingId, @RequestBody String status){
+    @PutMapping("/updateProductMovingByMovingId/{MovingId}")
+    public ResponseEntity<String> updateProductMovingByMovingId(@PathVariable("MovingId") int MovingId, @RequestBody String status){
         try{
             productMovingService.updateProductMovingByMovingId(MovingId, status);
             return ResponseEntity.status(200).body("Successfully!");

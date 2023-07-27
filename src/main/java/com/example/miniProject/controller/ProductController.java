@@ -30,8 +30,8 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/updateProductById")
-    public ResponseEntity<String> updateProduct(@RequestParam("id") int id, @RequestBody Products data) {
+    @PutMapping("/updateProductById/{id}")
+    public ResponseEntity<String> updateProduct(@RequestParam("id") int id,  @RequestBody int  data) {
         try {
             productservice.updateProductById(id, data);
             return ResponseEntity.status(200).body("Successfully!");

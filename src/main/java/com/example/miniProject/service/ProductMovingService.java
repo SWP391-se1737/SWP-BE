@@ -6,6 +6,7 @@ import com.example.miniProject.model.Products;
 import com.example.miniProject.repository.MovingItemRepository;
 import com.example.miniProject.repository.ProductMovingRepository;
 import com.example.miniProject.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,24 +34,20 @@ public class ProductMovingService {
     }
 
     public void updateProductMovingByMovingId( int MovingId, String status){
-        Optional<ProductMovings> exist = repo.findById(MovingId);
-        System.out.println("Exist" + exist);
-        if (exist.isPresent()) {
-            if(status.equals("Chuyển thành công")){
-                exist.get().setStatus("Chuyển thành công");
+        try {
+            Optional<ProductMovings> exist = repo.findById(MovingId);
+            if (exist.isPresent()) {
+                exist.get().setStatus(status);
+                repo.save(exist.get());
 
-                List<MovingItems> movingItems = movingItemRepo.findById(exist.get().getMovingId());
-                Optional<Products> product = productRepo.findById(movingItems.get(0).getProductID());
-                if(product.isPresent()){
-                    product.get().setSellcampusid(exist.get().getToLocation());
-                    productRepo.save(product.get());
-                }
+
+            }else {
+                throw new EntityNotFoundException("Not found: " + MovingId);
             }
-
-            repo.save(exist.get());
-        } else {
-            throw new RuntimeException("Not found: " + MovingId);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
+
 
     }
     public void deleteProductMovingByMovingId(int MovingId){

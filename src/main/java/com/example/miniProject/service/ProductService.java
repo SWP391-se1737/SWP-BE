@@ -72,21 +72,11 @@ public class ProductService {
         }
 
 
-    public void updateProductById(int id, Products product) {
+    public void updateProductById(int id, int sellcampusid) {
         Optional<Products> exist = repo.findById(id);
         System.out.println("Exist" + exist);
         if (exist.isPresent()) {
-            exist.get().setName(product.getName());
-            exist.get().setImage(product.getImage());
-            exist.get().setDescription(product.getDescription());
-            exist.get().setPrice(product.getPrice());
-            exist.get().setCreateAT(product.getCreateAT());
-            exist.get().setExpire(product.getExpire());
-            exist.get().setStatus(product.getStatus());
-            exist.get().setQuantity(product.getQuantity());
-            exist.get().setSeller_id(product.getSeller_id());
-            exist.get().setSellcampusid(product.getSellcampusid());
-            exist.get().setCategoryid(product.getCategoryid());
+            exist.get().setSellcampusid(sellcampusid);
             // save to db
             repo.save(exist.get());
 
