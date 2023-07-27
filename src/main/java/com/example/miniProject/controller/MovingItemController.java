@@ -41,4 +41,8 @@ public class MovingItemController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
         }
     }
+    @GetMapping("/findItemById/{id}")
+    public List<MovingItems> findItemById(@PathVariable int id){
+        return movingItemService.findItemById(id);
+    }
 }
