@@ -29,15 +29,8 @@ public class MovingItemService {
         }
     }
 
-    public boolean updateItem(MovingItems newItem, int itemID) {
-        Optional<MovingItems> existingItem = repo.findById(itemID);
-        if (existingItem.isPresent()) {
-            MovingItems items = existingItem.get();
-            items.setProductID(newItem.getProductID());
 
-            return true;
-        } else {
-            return false;
-        }
+    public List <MovingItems> findItemById(int id){
+        return repo.findById(id);
     }
 }

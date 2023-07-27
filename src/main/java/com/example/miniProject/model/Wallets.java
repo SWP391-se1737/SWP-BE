@@ -7,8 +7,6 @@ import jakarta.persistence.*;
 public class Wallets {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
-    private int id;
     @Column(name = "UserId")
     private int userid;
     @Column(name = "Balance")
@@ -17,20 +15,11 @@ public class Wallets {
     public Wallets() {
     }
 
-    public Wallets(int id, int userid, double balance) {
-        this.id = id;
+    public Wallets( int userid, double balance) {
+
         this.userid = userid;
         this.balance = balance;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getUserid() {
         return userid;
     }

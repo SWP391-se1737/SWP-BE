@@ -56,7 +56,7 @@ public class OrderService {
                     //create product moving
                     ProductMovings productMovings = new ProductMovings();
                     productMovings.setMovingId(movingItems.getId());
-                    productMovings.setMovingDate(new Timestamp(System.currentTimeMillis()));
+                    productMovings.setMovingDate(null);
                     productMovings.setArrivalDate(null);
                     productMovings.setFromLocation(product.get().getSellcampusid());
                     productMovings.setToLocation(order.getBuycampusid());

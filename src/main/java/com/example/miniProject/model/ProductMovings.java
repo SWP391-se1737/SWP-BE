@@ -19,7 +19,6 @@ public class ProductMovings {
     @Column(name = "MovingId")
     private int MovingId;
     @Column(name= "MovingDate", nullable = true)
-    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp MovingDate;

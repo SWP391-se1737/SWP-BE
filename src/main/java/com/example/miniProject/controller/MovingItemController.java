@@ -25,20 +25,7 @@ public class MovingItemController {
         return "Items is added";
     }
 
-    @PutMapping("/updateItems/{id}")
-    public ResponseEntity<String> updateItem(@RequestBody MovingItems newItem, @PathVariable int id){
-        boolean check = false;
-        check = movingItemService.updateItem(newItem,id);
-        try {
-            if (check){
-                return ResponseEntity.ok("Update Success ID:" + id);
-            } else {
-                return ResponseEntity.ok("ID: " + id + " khong ton tai");
-            }
-        } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error at AccountController:" + e.getMessage());
-        }
-    }
+
 
     @DeleteMapping("/deleteItems/{id}")
     public ResponseEntity<String> deleteItem(@PathVariable int id){
