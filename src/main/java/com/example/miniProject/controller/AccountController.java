@@ -110,7 +110,7 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam("Email") String email, @RequestParam("Password") String password) {
+    public Accounts login(@RequestParam("Email") String email, @RequestParam("Password") String password) {
         return accountService.login(email, password);
     }
 }

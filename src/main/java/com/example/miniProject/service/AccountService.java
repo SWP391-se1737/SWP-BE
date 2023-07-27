@@ -2,8 +2,6 @@ package com.example.miniProject.service;
 
 
 import com.example.miniProject.model.Accounts;
-import com.example.miniProject.model.Products;
-import com.example.miniProject.model.Wallets;
 import com.example.miniProject.repository.AccountRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,14 +72,16 @@ public class AccountService {
         }
     }
 
-    public ResponseEntity<String> login(String email, String password) {
+    public Accounts login(String email, String password) {
         Optional<Accounts> optionalAccount = repo.findByEmailAndPassword(email, password);
         if (optionalAccount.isPresent()) {
+            Accounts  acc = optionalAccount.get();
+            return new Accounts(acc.getId(), acc.getEmail(), acc.getPhone(), acc.getRole(), acc.isStatus(), acc.getPassword());
             // Tài khoản hợp lệ, thực hiện các hành động sau khi đăng nhập thành công
-            return new ResponseEntity<>("Đăng nhập thành công", HttpStatus.OK);
+
         } else {
             // Tài khoản không hợp lệ
-            return new ResponseEntity<>("Email hoặc mật khẩu không đúng", HttpStatus.UNAUTHORIZED);
+            return null;
         }
     }
 }
