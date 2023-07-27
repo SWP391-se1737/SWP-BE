@@ -27,19 +27,25 @@ public class ProductMovingService {
     private MovingItemRepository movingItemRepo;
 
     public List<ProductMovings> getAllProductMoving(){ return repo.findAll();}
-
-
     public void createNewProductMoving(ProductMovings productMoving){
             repo.save(productMoving);
     }
 
     public void updateProductMovingByMovingId( int MovingId, String status){
         try {
+            System.out.println(status);
             Optional<ProductMovings> exist = repo.findById(MovingId);
             if (exist.isPresent()) {
+                if(status.equals("Chuyển thành công")){
+                    List<MovingItems> movingItem = movingItemRepo.findById(MovingId);
+                    Optional<Products> product = productRepo.findById(movingItem.get(0).getProductID());
+                    if(product.isPresent()){
+                        product.get().setSellcampusid(exist.get().getToLocation());
+                        productRepo.save(product.get());
+                    }
+                }
                 exist.get().setStatus(status);
                 repo.save(exist.get());
-
 
             }else {
                 throw new EntityNotFoundException("Not found: " + MovingId);
@@ -47,15 +53,12 @@ public class ProductMovingService {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-
-
     }
     public void deleteProductMovingByMovingId(int MovingId){
         Optional<ProductMovings> exist = repo.findById(MovingId);
         if(exist.isPresent()) {
             exist.get().setStatus("Thất bại");
     }else{
-
             throw new RuntimeException("Not found: " + MovingId);
         }
     }

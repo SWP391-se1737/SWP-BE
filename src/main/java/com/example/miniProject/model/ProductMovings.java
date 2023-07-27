@@ -16,6 +16,7 @@ import java.util.Date;
 public class ProductMovings {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MovingId")
     private int MovingId;
     @Column(name= "MovingDate", nullable = true)

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -31,8 +32,8 @@ public class ProductMovingController {
             return ResponseEntity.status(500).body("Error creating productMoving" + e.getMessage());
         }
     }
-    @PutMapping("/updateProductMovingByMovingId/{MovingId}")
-    public ResponseEntity<String> updateProductMovingByMovingId(@PathVariable("MovingId") int MovingId, @RequestBody String status){
+    @PutMapping( "/updateProductMovingByMovingId/{MovingId}")
+    public ResponseEntity<String> updateProductMovingByMovingId(@PathVariable("MovingId") int MovingId, @RequestParam String status){
         try{
             productMovingService.updateProductMovingByMovingId(MovingId, status);
             return ResponseEntity.status(200).body("Successfully!");

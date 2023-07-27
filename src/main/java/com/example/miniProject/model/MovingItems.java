@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "MovingItems")
 public class MovingItems {
-    @jakarta.persistence.Id
-    @org.springframework.data.annotation.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private int id;
