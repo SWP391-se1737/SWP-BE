@@ -31,12 +31,20 @@ public class ProductMovingService {
             repo.save(productMoving);
     }
 
-    public void updateProductMovingByMovingId( int MovingId, String status){
+    public void updateProductMovingByMovingId( int MovingId, ProductMovings productMovings){
         try {
-            System.out.println(status);
+
             Optional<ProductMovings> exist = repo.findById(MovingId);
             if (exist.isPresent()) {
-                if(status.equals("Chuyển thành công")){
+                exist.get().setMovingId(productMovings.getMovingId());
+                exist.get().setMovingDate(productMovings.getMovingDate());
+                exist.get().setArrivalDate(productMovings.getArrivalDate());
+                exist.get().setFromLocation(productMovings.getFromLocation());
+                exist.get().setToLocation(productMovings.getToLocation());
+                exist.get().setStatus(productMovings.getStatus());
+                exist.get().setShipperId(productMovings.getShipperId());
+
+                if(exist.get().getStatus().equals("Chuyển thành công"));{
                     List<MovingItems> movingItem = movingItemRepo.findById(MovingId);
                     Optional<Products> product = productRepo.findById(movingItem.get(0).getProductID());
                     if(product.isPresent()){
@@ -44,7 +52,7 @@ public class ProductMovingService {
                         productRepo.save(product.get());
                     }
                 }
-                exist.get().setStatus(status);
+
                 repo.save(exist.get());
 
             }else {
